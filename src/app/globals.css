@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+  --color-clinical-bg: #FFFFFF;
+  --color-clinical-subtle: #F8FAFC;
+  --color-clinical-card: #F1F5F9;
+  --color-clinical-navy: #0F172A;
+  --color-clinical-slate: #475569;
+  --color-clinical-teal: #0E7490;
+  --color-clinical-teal-hover: #155E75;
+  --color-clinical-border: #E2E8F0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  background-color: #FFFFFF;
+  color: #0F172A;
+}
+
+body {
+  background-color: #FFFFFF;
+  color: #0F172A;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom focus ring for strict accessibility (R-32) */
+:focus-visible {
+  outline: 2px solid #0E7490;
+  outline-offset: 3px;
+}
