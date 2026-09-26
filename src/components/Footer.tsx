@@ -1,40 +1,42 @@
 import Link from "next/link";
 import { clinicData } from "@/data/dental";
-import { Phone, MessageCircle, Shield } from "lucide-react";
+import { Phone, MessageCircle, ShieldCheck, Heart } from "lucide-react";
 
 export function Footer() {
   const { contact, operatingLicense, schedule } = clinicData;
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#1C1D1F] text-[#A6A49F] pt-20 pb-12 border-t border-[#2C2D30]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 pb-16 border-b border-[#2C2D30]">
-          <div className="lg:col-span-4 space-y-5">
-            <Link href="#" className="inline-block">
-              <span className="font-serif text-2xl font-bold tracking-wider text-white">
-                LUMINA STUDIO
-              </span>
-              <span className="block text-[10px] tracking-[0.25em] text-[#8F6E4D] uppercase font-sans mt-0.5">
-                Dental Artistry &amp; Clinical Precision
+    <footer className="bg-[#1E242B] text-[#9DA4AE] pt-16 pb-12 border-t border-[#2D353F]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 pb-14 border-b border-[#2D353F]">
+          {/* Brand & Mission */}
+          <div className="lg:col-span-4 space-y-4">
+            <Link href="#" className="inline-flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-xl bg-[#246A60] text-white flex items-center justify-center font-bold text-sm">
+                L
+              </div>
+              <span className="text-xl font-bold tracking-tight text-white">
+                Lumina Dental <span className="text-xs font-semibold text-[#BCD9D2]">Surabaya</span>
               </span>
             </Link>
 
-            <p className="text-xs sm:text-sm text-[#A6A49F] leading-relaxed max-w-sm font-normal">
+            <p className="text-xs sm:text-sm text-[#9DA4AE] leading-relaxed max-w-sm">
               {clinicData.shortDescription}
             </p>
 
-            <div className="pt-2 text-[11px] text-[#A6A49F] flex items-start gap-2.5">
-              <Shield className="w-4 h-4 text-[#8F6E4D] shrink-0 mt-0.5" aria-hidden="true" />
+            <div className="pt-2 text-xs text-[#9DA4AE] flex items-start gap-2">
+              <ShieldCheck className="w-4 h-4 text-[#BCD9D2] shrink-0 mt-0.5" />
               <span className="leading-snug">{operatingLicense}</span>
             </div>
           </div>
 
-          <div className="lg:col-span-3 space-y-4">
-            <p className="font-semibold text-xs uppercase tracking-widest text-white">
-              Menu Layanan
+          {/* Treatments Navigation */}
+          <div className="lg:col-span-3 space-y-3">
+            <p className="font-semibold text-xs uppercase tracking-wider text-white">
+              Katalog Layanan
             </p>
-            <ul className="space-y-2.5 text-xs text-[#A6A49F]">
+            <ul className="space-y-2 text-xs text-[#9DA4AE]">
               <li>
                 <a href="#layanan" className="hover:text-white transition-colors">
                   Ultrasonic Scaling &amp; Airflow
@@ -67,49 +69,51 @@ export function Footer() {
               </li>
               <li>
                 <a href="#dokter" className="hover:text-white transition-colors">
-                  Profil Tim Dokter Spesialis
+                  Tim Dokter Gigi Spesialis
                 </a>
               </li>
             </ul>
           </div>
 
-          <div className="lg:col-span-3 space-y-4">
-            <p className="font-semibold text-xs uppercase tracking-widest text-white">
-              Jadwal Praktek
+          {/* Schedule */}
+          <div className="lg:col-span-3 space-y-3">
+            <p className="font-semibold text-xs uppercase tracking-wider text-white">
+              Jadwal Praktik
             </p>
-            <div className="space-y-3 text-xs text-[#A6A49F]">
+            <div className="space-y-2.5 text-xs text-[#9DA4AE]">
               {schedule.map((item, idx) => (
                 <div key={idx} className="space-y-0.5">
-                  <span className="text-[#EFECE6] block font-medium">{item.days}</span>
-                  <span className="text-[11px] text-[#A6A49F]">{item.time}</span>
+                  <span className="text-white block font-medium">{item.days}</span>
+                  <span className="text-[11px] text-[#9DA4AE]">{item.time}</span>
                 </div>
               ))}
-              <p className="text-[11px] text-[#8F6E4D] pt-1">
-                Melayani janji temu terjadwal dan penanganan kasus darurat.
+              <p className="text-[11px] text-[#BCD9D2] pt-1">
+                Melayani janji temu terjadwal dan penanganan kasus gigi darurat.
               </p>
             </div>
           </div>
 
-          <div className="lg:col-span-2 space-y-4">
-            <p className="font-semibold text-xs uppercase tracking-widest text-white">
-              Akses &amp; Kontak
+          {/* Contact */}
+          <div className="lg:col-span-2 space-y-3">
+            <p className="font-semibold text-xs uppercase tracking-wider text-white">
+              Kontak Klinik
             </p>
-            <address className="not-italic text-xs text-[#A6A49F] space-y-2 leading-relaxed">
+            <address className="not-italic text-xs text-[#9DA4AE] space-y-2 leading-relaxed">
               <p>{contact.address}</p>
               <p>{contact.city}</p>
-              <div className="pt-3 space-y-2">
+              <div className="pt-2 space-y-2">
                 <a
                   href={`tel:${contact.emergencyPhone}`}
-                  className="flex items-center gap-2 text-[#EFECE6] hover:text-[#8F6E4D] transition-colors"
+                  className="flex items-center gap-2 text-white hover:text-[#BCD9D2] transition-colors"
                 >
-                  <Phone className="w-3.5 h-3.5 text-[#8F6E4D]" aria-hidden="true" />
+                  <Phone className="w-3.5 h-3.5 text-[#BCD9D2]" />
                   <span>{contact.formattedEmergencyPhone}</span>
                 </a>
                 <a
                   href={`https://wa.me/${contact.whatsapp}`}
-                  className="flex items-center gap-2 text-[#EFECE6] hover:text-[#8F6E4D] transition-colors"
+                  className="flex items-center gap-2 text-white hover:text-[#BCD9D2] transition-colors"
                 >
-                  <MessageCircle className="w-3.5 h-3.5 text-[#8F6E4D]" aria-hidden="true" />
+                  <MessageCircle className="w-3.5 h-3.5 text-[#BCD9D2]" />
                   <span>{contact.whatsappFormatted}</span>
                 </a>
               </div>
@@ -117,12 +121,14 @@ export function Footer() {
           </div>
         </div>
 
+        {/* Bottom Credits */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-[#6E7178] gap-4">
           <p>
-            &copy; {currentYear} {clinicData.name}. Seluruh hak cipta dilindungi.
+            &copy; {currentYear} {clinicData.name}. Hak cipta dilindungi undang-undang.
           </p>
-          <p className="text-[#6E7178]">
-            Perawatan gigi presisi dengan kenyamanan personal di Surabaya.
+          <p className="flex items-center gap-1.5 text-[#9DA4AE]">
+            <span>Perawatan gigi ramah cemas di Surabaya</span>
+            <Heart className="w-3 h-3 text-[#BCD9D2] fill-[#BCD9D2]" />
           </p>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans, Newsreader } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import { clinicData } from "@/data/dental";
 import { JsonLd } from "@/components/JsonLd";
 import "./globals.css";
@@ -8,13 +8,7 @@ const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-jakarta",
   display: "swap",
-});
-
-const newsreader = Newsreader({
-  subsets: ["latin"],
-  variable: "--font-newsreader",
-  display: "swap",
-  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -60,7 +54,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#8F6E4D",
+  themeColor: "#246A60",
   width: "device-width",
   initialScale: 1,
 };
@@ -71,11 +65,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id" className={`${jakarta.variable} ${newsreader.variable} scroll-smooth`}>
-      <body className="min-h-screen bg-[#FBFBFA] text-[#1C1D1F] antialiased font-sans selection:bg-[#E5E0D8] selection:text-[#1C1D1F]">
+    <html lang="id" className={`${jakarta.variable} scroll-smooth`}>
+      <body className="min-h-screen bg-[#FAF8F5] text-[#1E242B] antialiased font-sans selection:bg-[#E4EFEA] selection:text-[#1E242B]">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2.5 focus:bg-[#8F6E4D] focus:text-white focus:rounded-lg focus:shadow-xl text-sm font-bold"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2.5 focus:bg-[#246A60] focus:text-white focus:rounded-lg focus:shadow-lg text-sm font-semibold"
         >
           Lewati ke konten utama
         </a>

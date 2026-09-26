@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { clinicData } from "@/data/dental";
-import { Calendar, User, Phone, Stethoscope, Check, ArrowRight } from "lucide-react";
+import { Calendar, User, Phone, Check, ArrowRight, Sparkles, Stethoscope } from "lucide-react";
 
 export function BookingWidget() {
   const { contact, doctors, treatments } = clinicData;
@@ -18,7 +18,7 @@ export function BookingWidget() {
 
   const generateWhatsAppUrl = () => {
     const nameStr = patientName.trim() ? patientName.trim() : "Pasien Baru";
-    const dateStr = bookingDate ? bookingDate : "Hari Ini / Terdekat";
+    const dateStr = bookingDate ? bookingDate : "Hari Ini / Jadwal Terdekat";
 
     const msg = `Halo Resepsionis Lumina Dental Studio, saya ingin menjadwalkan kunjungan dokter gigi:
 • Nama Pasien: ${nameStr}
@@ -26,37 +26,34 @@ export function BookingWidget() {
 • Pilihan Dokter: ${selectedDoctor}
 • Tanggal Kunjungan: ${dateStr}
 
-Mohon konfirmasi ketersediaan slot waktu dokter. Terima kasih!`;
+Mohon informasi ketersediaan slot waktu dokter. Terima kasih!`;
 
     return `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(msg)}`;
   };
 
   return (
-    <section id="booking" className="py-24 sm:py-32 bg-[#F5F3EF] text-[#1C1D1F] border-t border-[#E8E5DF]">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="booking" className="scroll-mt-24 py-20 sm:py-28 bg-[#FAF8F5] text-[#1E242B] border-b border-[#E5DFD5]">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-10">
+        {/* Section Header */}
         <div className="max-w-2xl mx-auto text-center mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-3 mb-4">
-            <span className="w-8 h-[1px] bg-[#8F6E4D]" />
-            <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-[#8F6E4D]">
-              06 / Reservasi &amp; Konsultasi
-            </span>
-            <span className="w-8 h-[1px] bg-[#8F6E4D]" />
-          </div>
-
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-[#1C1D1F] tracking-tight leading-[1.15] mb-4">
-            Mulai Perawatan Senyum Anda.
+          <span className="text-xs font-semibold tracking-wider text-[#246A60] uppercase">
+            Reservasi Jadwal
+          </span>
+          <h2 className="mt-2 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-[#1E242B]">
+            Siap untuk kunjungan berikutnya?
           </h2>
-
-          <p className="text-base text-[#6E7178] leading-relaxed">
-            Pilih tindakan dan jadwal yang Anda kehendaki. Concierge medis kami akan mengonfirmasi slot waktu dalam hitungan menit via WhatsApp.
+          <p className="mt-3 text-sm sm:text-base text-[#5E6773] leading-relaxed">
+            Mari temukan jadwal yang paling nyaman untuk Anda. Tim resepsionis kami siap mengonfirmasi waktu dan persiapan awal secara ramah.
           </p>
         </div>
 
-        <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 border border-[#E8E5DF] shadow-xs space-y-8">
+        {/* Form Container */}
+        <div className="bg-white rounded-3xl p-6 sm:p-10 border border-[#E5DFD5] shadow-xs space-y-8">
+          {/* Step 1: Treatment */}
           <div>
-            <label className="text-xs font-semibold uppercase tracking-wider text-[#1C1D1F] block mb-3 flex items-center gap-2">
-              <Stethoscope className="w-3.5 h-3.5 text-[#8F6E4D]" aria-hidden="true" />
-              <span>01. Pilih Rencana Tindakan</span>
+            <label className="text-xs font-semibold uppercase tracking-wider text-[#1E242B] block mb-3 flex items-center gap-2">
+              <Stethoscope className="w-3.5 h-3.5 text-[#246A60]" />
+              <span>01. Pilih Rencana Perawatan</span>
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
               {treatments.map((t) => {
@@ -66,16 +63,16 @@ Mohon konfirmasi ketersediaan slot waktu dokter. Terima kasih!`;
                     key={t.id}
                     type="button"
                     onClick={() => setSelectedTreatment(t.name)}
-                    className={`p-3.5 text-xs rounded-xl border text-left transition-all min-h-[48px] cursor-pointer flex items-center justify-between gap-2 ${
+                    className={`p-3.5 text-xs rounded-2xl border text-left transition-all min-h-[48px] cursor-pointer flex items-center justify-between gap-2 ${
                       isSelected
-                        ? "bg-[#1C1D1F] border-[#1C1D1F] text-white font-medium shadow-xs"
-                        : "bg-[#FBFBFA] text-[#6E7178] border-[#E8E5DF] hover:border-[#1C1D1F]/30 hover:text-[#1C1D1F]"
+                        ? "bg-[#E4EFEA] border-[#246A60] text-[#1E242B] font-semibold shadow-xs"
+                        : "bg-[#FAF8F5] text-[#5E6773] border-[#E5DFD5] hover:border-[#246A60]/40 hover:text-[#1E242B]"
                     }`}
                     aria-pressed={isSelected}
                   >
                     <span className="truncate">{t.name}</span>
                     {isSelected && (
-                      <Check className="w-3.5 h-3.5 text-[#8F6E4D] shrink-0" aria-hidden="true" />
+                      <Check className="w-4 h-4 text-[#246A60] shrink-0" />
                     )}
                   </button>
                 );
@@ -83,20 +80,21 @@ Mohon konfirmasi ketersediaan slot waktu dokter. Terima kasih!`;
             </div>
           </div>
 
+          {/* Step 2 & 3: Doctor and Date */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
               <label
                 htmlFor="select-doctor"
-                className="text-xs font-semibold uppercase tracking-wider text-[#1C1D1F] block mb-2 flex items-center gap-2"
+                className="text-xs font-semibold uppercase tracking-wider text-[#1E242B] block mb-2 flex items-center gap-2"
               >
-                <User className="w-3.5 h-3.5 text-[#8F6E4D]" aria-hidden="true" />
+                <User className="w-3.5 h-3.5 text-[#246A60]" />
                 <span>02. Pilihan Dokter</span>
               </label>
               <select
                 id="select-doctor"
                 value={selectedDoctor}
                 onChange={(e) => setSelectedDoctor(e.target.value)}
-                className="w-full bg-[#FBFBFA] border border-[#E8E5DF] rounded-xl px-4 py-3 text-[#1C1D1F] text-xs sm:text-sm focus-visible:outline-2 focus-visible:outline-[#8F6E4D] min-h-[46px]"
+                className="w-full bg-[#FAF8F5] border border-[#E5DFD5] rounded-xl px-4 py-3 text-[#1E242B] text-xs sm:text-sm focus-visible:outline-2 focus-visible:outline-[#246A60] min-h-[46px]"
               >
                 <option value="Dokter yang Tersedia Paling Awal">
                   Dokter yang Tersedia Paling Awal (Rekomendasi Cepat)
@@ -112,25 +110,26 @@ Mohon konfirmasi ketersediaan slot waktu dokter. Terima kasih!`;
             <div>
               <label
                 htmlFor="clinic-date"
-                className="text-xs font-semibold uppercase tracking-wider text-[#1C1D1F] block mb-2 flex items-center gap-2"
+                className="text-xs font-semibold uppercase tracking-wider text-[#1E242B] block mb-2 flex items-center gap-2"
               >
-                <Calendar className="w-3.5 h-3.5 text-[#8F6E4D]" aria-hidden="true" />
-                <span>03. Rencana Tanggal Kunjungan</span>
+                <Calendar className="w-3.5 h-3.5 text-[#246A60]" />
+                <span>03. Tanggal Kunjungan yang Dikehendaki</span>
               </label>
               <input
                 id="clinic-date"
                 type="date"
                 value={bookingDate}
                 onChange={(e) => setBookingDate(e.target.value)}
-                className="w-full bg-[#FBFBFA] border border-[#E8E5DF] rounded-xl px-4 py-3 text-[#1C1D1F] text-xs sm:text-sm focus-visible:outline-2 focus-visible:outline-[#8F6E4D] min-h-[46px]"
+                className="w-full bg-[#FAF8F5] border border-[#E5DFD5] rounded-xl px-4 py-3 text-[#1E242B] text-xs sm:text-sm focus-visible:outline-2 focus-visible:outline-[#246A60] min-h-[46px]"
               />
             </div>
           </div>
 
+          {/* Step 4: Patient Name */}
           <div>
             <label
               htmlFor="patient-name"
-              className="text-xs font-semibold uppercase tracking-wider text-[#1C1D1F] block mb-2"
+              className="text-xs font-semibold uppercase tracking-wider text-[#1E242B] block mb-2"
             >
               04. Nama Lengkap Pasien
             </label>
@@ -140,33 +139,36 @@ Mohon konfirmasi ketersediaan slot waktu dokter. Terima kasih!`;
               placeholder="Contoh: Jessica Handayani"
               value={patientName}
               onChange={(e) => setPatientName(e.target.value)}
-              className="w-full bg-[#FBFBFA] border border-[#E8E5DF] rounded-xl px-4 py-3 text-[#1C1D1F] placeholder-[#A6A49F] text-xs sm:text-sm focus-visible:outline-2 focus-visible:outline-[#8F6E4D] min-h-[46px]"
+              className="w-full bg-[#FAF8F5] border border-[#E5DFD5] rounded-xl px-4 py-3 text-[#1E242B] placeholder-[#A6A49F] text-xs sm:text-sm focus-visible:outline-2 focus-visible:outline-[#246A60] min-h-[46px]"
             />
           </div>
 
+          {/* Action Button */}
           <div className="pt-2">
             <a
               href={generateWhatsAppUrl()}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full inline-flex items-center justify-center gap-3 px-6 py-4 rounded-xl bg-[#1C1D1F] hover:bg-black text-white font-medium text-sm transition-all shadow-sm group"
+              className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-full bg-[#246A60] hover:bg-[#1B524A] text-white font-semibold text-sm transition-all shadow-xs group"
             >
-              <span>Konfirmasi Reservasi Jadwal via WhatsApp</span>
-              <ArrowRight className="w-4 h-4 text-[#8F6E4D] group-hover:translate-x-1 transition-transform" aria-hidden="true" />
+              <span>Konfirmasi Jadwal via WhatsApp</span>
+              <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
             </a>
-            <p className="text-center text-xs text-[#A6A49F] mt-3">
-              Tim resepsionis Lumina Dental Studio melayani konfirmasi reservasi dan estimasi jadwal setiap hari kerja.
-            </p>
+            <div className="mt-3 flex items-center justify-center gap-2 text-xs text-[#5E6773]">
+              <Sparkles className="w-3.5 h-3.5 text-[#246A60]" />
+              <span>Tanpa uang muka atau biaya reservasi tersembunyi.</span>
+            </div>
           </div>
         </div>
 
-        <div className="text-center mt-8 text-xs text-[#6E7178]">
-          Kebutuhan tindakan darurat atau sakit gigi akut?{" "}
+        {/* Emergency Assistance */}
+        <div className="text-center mt-8 text-xs text-[#5E6773]">
+          Gigi sakit mendadak atau membutuhkan penanganan segera?{" "}
           <a
             href={`tel:${contact.emergencyPhone}`}
-            className="text-[#1C1D1F] font-semibold hover:text-[#8F6E4D] transition-colors inline-flex items-center gap-1.5 underline underline-offset-4"
+            className="text-[#246A60] font-semibold hover:underline inline-flex items-center gap-1.5 ml-1"
           >
-            <Phone className="w-3.5 h-3.5 text-[#8F6E4D]" aria-hidden="true" />
+            <Phone className="w-3.5 h-3.5 text-[#246A60]" />
             <span>Telepon Langsung: {contact.formattedEmergencyPhone}</span>
           </a>
         </div>

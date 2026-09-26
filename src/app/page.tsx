@@ -1,8 +1,9 @@
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
+import { PatientComfort } from "@/components/PatientComfort";
+import { PatientJourney } from "@/components/PatientJourney";
 import { Treatments } from "@/components/Treatments";
 import { Doctors } from "@/components/Doctors";
-import { Sterilization } from "@/components/Sterilization";
 import { Cases } from "@/components/Cases";
 import { Testimonials } from "@/components/Testimonials";
 import { BookingWidget } from "@/components/BookingWidget";
@@ -15,9 +16,10 @@ export default function Home() {
       <Navbar />
       <main id="main-content">
         <Hero />
+        <PatientComfort />
+        <PatientJourney />
         <Treatments />
         <Doctors />
-        <Sterilization />
         <Cases />
         <Testimonials />
         <BookingWidget />

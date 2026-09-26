@@ -2,13 +2,13 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Lumina Dental Studio",
+    name: "Lumina Dental Studio Surabaya",
     short_name: "Lumina Dental",
-    description: "Klinik dokter gigi modern dan implan center di Surabaya dengan standar sterilisasi tinggi dan kenyamanan maksimal.",
+    description: "Klinik dokter gigi spesialis di Surabaya Barat dengan pendekatan ramah cemas, teknologi 3D, dan kenyamanan maksimal.",
     start_url: "/",
     display: "standalone",
-    background_color: "#FBFBFA",
-    theme_color: "#8F6E4D",
+    background_color: "#FAF8F5",
+    theme_color: "#246A60",
     icons: [
       {
         src: "/icon.svg",
