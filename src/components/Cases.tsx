@@ -1,159 +1,91 @@
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
 import { clinicData } from "@/data/dental";
-import {
-  Clock,
-  Sparkles,
-  ShieldCheck,
-  User,
-  ArrowRight,
-  MessageCircle,
-  Smile,
-} from "lucide-react";
+import { Clock, CheckCircle2, MessageCircle, Sparkles } from "lucide-react";
 
 export function Cases() {
   const { cases, contact } = clinicData;
-  const [activeCaseId, setActiveCaseId] = useState<string>(cases[0].id);
-
-  const activeCase = cases.find((c) => c.id === activeCaseId) || cases[0];
 
   return (
-    <section id="hasil" className="py-20 sm:py-28 bg-white text-slate-900 border-t border-slate-200">
+    <section id="hasil" className="py-16 sm:py-24 bg-slate-50 text-slate-900 border-t border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-cyan-50 text-[#0E7490] border border-cyan-100 mb-3">
-            <Smile className="w-3.5 h-3.5" aria-hidden="true" />
-            <span>Dokumentasi Klinis &amp; Hasil Nyata</span>
-          </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
-            Transformasi Senyum &amp; Kesehatan Gigi
+        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-14">
+          <span className="text-xs font-bold uppercase tracking-widest text-[#0E7490] block mb-2">
+            Dokumentasi Klinis
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">
+            Transformasi Senyum Pasien
           </h2>
-          <p className="text-base text-slate-600 leading-relaxed">
-            Setiap rencana perawatan dirancang personal dengan prinsip *Digital Smile Design* agar hasil senyum proporsional dengan garis bibir dan bentuk wajah Anda.
+          <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+            Hasil perawatan nyata yang dirancang proporsional dengan profil wajah dan senyuman Anda.
           </p>
         </div>
 
-        {/* Case Navigation Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
-          {cases.map((c) => {
-            const isActive = c.id === activeCase.id;
-            return (
-              <button
-                key={c.id}
-                type="button"
-                onClick={() => setActiveCaseId(c.id)}
-                className={`px-4 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all min-h-[44px] cursor-pointer ${
-                  isActive
-                    ? "bg-[#0E7490] text-white shadow-xs"
-                    : "bg-slate-50 text-slate-600 hover:text-slate-900 hover:bg-slate-100 border border-slate-200"
-                }`}
-                aria-pressed={isActive}
-              >
-                {c.treatmentType}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Featured Case Study Hero Panel */}
-        <div className="bg-slate-50 rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xl max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            {/* Visual Transformation Photo Showcase */}
-            <div className="lg:col-span-6 relative">
-              <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden bg-slate-200 border-2 border-white shadow-md">
-                <Image
-                  src={activeCase.image}
-                  alt={activeCase.title}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover"
-                />
-                <div className="absolute top-3 left-3 px-3 py-1 bg-white/95 backdrop-blur-xs rounded-lg text-xs font-bold text-[#0E7490] shadow-sm flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-[#0E7490]" aria-hidden="true" />
-                  <span>Hasil Pasca Perawatan</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Case Details & Medical Breakdown */}
-            <div className="lg:col-span-6 space-y-5">
+        {/* Clean Transformation Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {cases.map((c) => (
+            <div
+              key={c.id}
+              className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group"
+            >
               <div>
-                <span className="text-[11px] font-bold uppercase tracking-wider text-[#0E7490] block mb-1">
-                  {activeCase.treatmentType}
-                </span>
-                <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 leading-snug">
-                  {activeCase.title}
-                </h3>
-              </div>
-
-              <p className="text-sm text-slate-600 leading-relaxed font-normal">
-                {activeCase.description}
-              </p>
-
-              {/* Clinical Metrics Grid */}
-              <div className="grid grid-cols-2 gap-3 text-xs">
-                <div className="p-3 rounded-xl bg-white border border-slate-200">
-                  <span className="text-slate-400 block text-[10px] uppercase font-bold">
-                    Durasi Penanganan
-                  </span>
-                  <span className="font-bold text-slate-800 flex items-center gap-1 mt-0.5">
-                    <Clock className="w-3.5 h-3.5 text-[#0E7490]" aria-hidden="true" />
-                    <span>{activeCase.durationText}</span>
-                  </span>
+                {/* Photo */}
+                <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100">
+                  <Image
+                    src={c.image}
+                    alt={c.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                    className="object-cover group-hover:scale-104 transition-transform duration-500"
+                  />
+                  <div className="absolute top-2.5 left-2.5 px-2.5 py-1 bg-white/95 backdrop-blur-xs rounded-md text-[10px] font-bold text-[#0E7490] shadow-xs flex items-center gap-1">
+                    <Sparkles className="w-3 h-3 text-[#0E7490]" aria-hidden="true" />
+                    <span>{c.treatmentType}</span>
+                  </div>
                 </div>
 
-                <div className="p-3 rounded-xl bg-white border border-slate-200">
-                  <span className="text-slate-400 block text-[10px] uppercase font-bold">
-                    Profil Pasien
-                  </span>
-                  <span className="font-bold text-slate-800 flex items-center gap-1 mt-0.5">
-                    <User className="w-3.5 h-3.5 text-[#0E7490]" aria-hidden="true" />
-                    <span>Usia {activeCase.patientAge || "20-an"}</span>
-                  </span>
-                </div>
-              </div>
+                {/* Details */}
+                <div className="p-4 space-y-2">
+                  <h3 className="font-bold text-sm text-slate-900 leading-snug">
+                    {c.title}
+                  </h3>
 
-              {/* Result Highlight Box */}
-              <div className="p-3.5 rounded-xl bg-emerald-50/80 border border-emerald-200/70 text-xs text-emerald-900 space-y-1">
-                <span className="font-bold block flex items-center gap-1.5 text-emerald-800">
-                  <ShieldCheck className="w-4 h-4 text-emerald-600" aria-hidden="true" />
-                  <span>Hasil Dokumentasi Pasien</span>
-                </span>
-                <p className="leading-relaxed">
-                  {activeCase.resultHighlight}
-                </p>
-                <div className="pt-1 text-[11px] text-emerald-700 font-medium">
-                  Dokter Penanggung Jawab: <strong>{activeCase.doctorInCharge}</strong>
+                  <p className="text-xs text-slate-600 leading-relaxed line-clamp-2">
+                    {c.description}
+                  </p>
+
+                  <div className="flex items-center gap-3 pt-1 text-[11px] text-slate-500">
+                    <span className="flex items-center gap-1">
+                      <Clock className="w-3 h-3 text-[#0E7490]" aria-hidden="true" />
+                      <span>{c.durationText}</span>
+                    </span>
+                    <span>•</span>
+                    <span>{c.patientAge}</span>
+                  </div>
+
+                  <div className="p-2 rounded-lg bg-emerald-50 text-[11px] text-emerald-800 flex items-start gap-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" aria-hidden="true" />
+                    <span className="leading-tight">{c.resultHighlight}</span>
+                  </div>
                 </div>
               </div>
 
-              {/* Action Buttons */}
-              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                <a
-                  href="#booking"
-                  className="flex-1 inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-[#0E7490] hover:bg-[#155E75] text-white text-xs sm:text-sm font-bold transition-all shadow-xs min-h-[44px]"
-                >
-                  <span>Konsultasikan Kasus Serupa</span>
-                  <ArrowRight className="w-4 h-4" aria-hidden="true" />
-                </a>
-
+              {/* Action */}
+              <div className="p-4 pt-0">
                 <a
                   href={`https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(
-                    `Halo Lumina Dental, saya melihat kasus ${activeCase.title}. Saya ingin konsultasi apakah kondisi gigi saya bisa mendapatkan hasil serupa?`
+                    `Halo Lumina Dental, saya melihat hasil ${c.title}. Saya ingin konsultasi apakah kasus gigi saya bisa dirawat seperti ini?`
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-1.5 px-4 py-3 rounded-xl bg-white hover:bg-slate-50 text-slate-800 text-xs sm:text-sm font-semibold border border-slate-300 transition-colors min-h-[44px]"
+                  className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-colors min-h-[44px]"
                 >
-                  <MessageCircle className="w-4 h-4 text-emerald-600" aria-hidden="true" />
-                  <span>Tanya WhatsApp</span>
+                  <MessageCircle className="w-3.5 h-3.5 text-emerald-600" aria-hidden="true" />
+                  <span>Konsultasi Kasus Ini</span>
                 </a>
               </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
