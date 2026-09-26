@@ -1,31 +1,41 @@
 @import "tailwindcss";
 
 @theme {
-  --color-clinical-bg: #FFFFFF;
-  --color-clinical-subtle: #F8FAFC;
-  --color-clinical-card: #F1F5F9;
-  --color-clinical-navy: #0F172A;
-  --color-clinical-slate: #475569;
-  --color-clinical-teal: #0E7490;
-  --color-clinical-teal-hover: #155E75;
-  --color-clinical-border: #E2E8F0;
+  --font-display: var(--font-newsreader);
+  --font-sans: var(--font-jakarta);
+
+  --color-studio-ivory: #FBFBFA;
+  --color-studio-stone: #F5F3EF;
+  --color-studio-card: #EFECE6;
+  --color-studio-border: #E5E0D8;
+  --color-studio-border-dark: #D4CDBC;
+  --color-studio-charcoal: #1C1D1F;
+  --color-studio-muted: #6E7178;
+  --color-studio-accent: #8F6E4D;
+  --color-studio-accent-hover: #785A3D;
+  --color-studio-sage: #526050;
 }
 
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
-  background-color: #FFFFFF;
-  color: #0F172A;
+  background-color: #FBFBFA;
+  color: #1C1D1F;
 }
 
 body {
-  background-color: #FFFFFF;
-  color: #0F172A;
+  background-color: #FBFBFA;
+  color: #1C1D1F;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+::selection {
+  background-color: #E5E0D8;
+  color: #1C1D1F;
+}
+
 :focus-visible {
-  outline: 2px solid #0E7490;
+  outline: 2px solid #8F6E4D;
   outline-offset: 3px;
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useSyncExternalStore } from "react";
 import { getClinicHoursStatus, ClinicHoursStatus } from "@/utils/clinicHours";
 
 interface LiveClinicStatusProps {
@@ -8,21 +8,35 @@ interface LiveClinicStatusProps {
   variant?: "pill" | "text";
 }
 
-export function LiveClinicStatus({ className = "", variant = "pill" }: LiveClinicStatusProps) {
-  const [status, setStatus] = useState<ClinicHoursStatus | null>(null);
+let cachedStatusString = "";
+let lastCheckedMinute = 0;
 
-  useEffect(() => {
-    setStatus(getClinicHoursStatus());
-    const interval = setInterval(() => {
-      setStatus(getClinicHoursStatus());
-    }, 60000);
-    return () => clearInterval(interval);
-  }, []);
+function subscribe(callback: () => void) {
+  const interval = setInterval(callback, 60000);
+  return () => clearInterval(interval);
+}
+
+function getSnapshot(): string {
+  const currentMinute = Math.floor(Date.now() / 60000);
+  if (currentMinute !== lastCheckedMinute || !cachedStatusString) {
+    lastCheckedMinute = currentMinute;
+    cachedStatusString = JSON.stringify(getClinicHoursStatus());
+  }
+  return cachedStatusString;
+}
+
+function getServerSnapshot(): string {
+  return "";
+}
+
+export function LiveClinicStatus({ className = "", variant = "pill" }: LiveClinicStatusProps) {
+  const rawStatus = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const status: ClinicHoursStatus | null = rawStatus ? (JSON.parse(rawStatus) as ClinicHoursStatus) : null;
 
   if (!status) {
     return (
-      <span className={`inline-flex items-center gap-2 text-xs text-slate-500 ${className}`}>
-        <span className="w-2 h-2 rounded-full bg-slate-300" aria-hidden="true" />
+      <span className={`inline-flex items-center gap-2 text-xs text-[#6E7178] ${className}`}>
+        <span className="w-2 h-2 rounded-full bg-[#A6A49F]" aria-hidden="true" />
         <span>Praktek Buka Hari Ini (09:00 - 21:00 WIB)</span>
       </span>
     );
@@ -33,11 +47,11 @@ export function LiveClinicStatus({ className = "", variant = "pill" }: LiveClini
       <span className={`inline-flex items-center gap-2 text-xs sm:text-sm font-medium ${className}`}>
         <span
           className={`w-2 h-2 rounded-full ${
-            status.isOpen ? "bg-emerald-600" : "bg-slate-400"
+            status.isOpen ? "bg-[#2E6F40]" : "bg-[#A6A49F]"
           }`}
           aria-hidden="true"
         />
-        <span className={status.isOpen ? "text-slate-800" : "text-slate-600"}>
+        <span className={status.isOpen ? "text-[#1C1D1F]" : "text-[#6E7178]"}>
           {status.statusText}
         </span>
       </span>
@@ -46,23 +60,23 @@ export function LiveClinicStatus({ className = "", variant = "pill" }: LiveClini
 
   return (
     <div
-      className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold border ${
+      className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium border ${
         status.isOpen
-          ? "bg-emerald-50 text-emerald-800 border-emerald-200"
-          : "bg-slate-100 text-slate-700 border-slate-200"
+          ? "bg-[#F5F3EF] text-[#1C1D1F] border-[#E8E5DF]"
+          : "bg-[#F5F3EF] text-[#6E7178] border-[#E8E5DF]"
       } ${className}`}
       role="status"
       aria-live="polite"
     >
       <span
         className={`w-2 h-2 rounded-full ${
-          status.isOpen ? "bg-emerald-600" : "bg-slate-400"
+          status.isOpen ? "bg-[#2E6F40]" : "bg-[#A6A49F]"
         }`}
         aria-hidden="true"
       />
-      <span>{status.badgeLabel}</span>
-      <span className="text-slate-400">·</span>
-      <span className="font-normal">{status.scheduleText}</span>
+      <span className="font-semibold">{status.badgeLabel}</span>
+      <span className="text-[#A6A49F]">·</span>
+      <span className="font-normal text-[#6E7178]">{status.scheduleText}</span>
     </div>
   );
 }
