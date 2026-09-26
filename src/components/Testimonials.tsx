@@ -7,7 +7,6 @@ export function Testimonials() {
   return (
     <section className="py-20 sm:py-28 bg-white text-slate-900 border-t border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-50 text-[#0E7490] text-xs font-bold mb-3 border border-teal-200">
             <MessageSquare className="w-3.5 h-3.5 text-[#0E7490]" aria-hidden="true" />
@@ -32,7 +31,6 @@ export function Testimonials() {
           </p>
         </div>
 
-        {/* Reviews Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           {reviews.map((rev) => (
             <div

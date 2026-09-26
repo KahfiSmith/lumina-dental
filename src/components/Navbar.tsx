@@ -35,7 +35,6 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile drawer on Escape key (R-32)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isMobileMenuOpen) {
@@ -76,7 +75,6 @@ export function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Logo & Clinical Brand */}
           <Link
             href="#"
             className="flex items-center gap-3 focus-visible:outline-2 focus-visible:outline-[#0E7490] rounded-md p-1"
@@ -102,7 +100,6 @@ export function Navbar() {
             </div>
           </Link>
 
-          {/* Desktop Nav Links with Scroll Spy */}
           <nav
             className="hidden lg:flex items-center space-x-7"
             aria-label="Navigasi Utama"
@@ -129,7 +126,6 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* Emergency Phone & Appointment CTA */}
           <div className="hidden sm:flex items-center space-x-3">
             <a
               href={`tel:${clinicData.contact.emergencyPhone}`}
@@ -148,7 +144,6 @@ export function Navbar() {
             </a>
           </div>
 
-          {/* Mobile Menu Button */}
           <div className="flex lg:hidden items-center gap-2">
             <a
               href="#booking"
@@ -175,7 +170,6 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Drawer */}
       {isMobileMenuOpen && (
         <div
           id="mobile-dental-menu"

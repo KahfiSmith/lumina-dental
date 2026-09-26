@@ -50,7 +50,6 @@ export function Hero() {
 
   return (
     <section className="relative pt-28 pb-16 sm:pt-36 sm:pb-20 bg-gradient-to-b from-sky-50/50 via-white to-slate-50 overflow-hidden">
-      {/* Subtle Glow Accents */}
       <div
         className="absolute top-0 right-1/4 w-96 h-96 bg-cyan-200/20 rounded-full blur-3xl pointer-events-none"
         aria-hidden="true"
@@ -61,11 +60,8 @@ export function Hero() {
       />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main Grid: Headline & Visual Studio */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-          {/* Left Column: Focused Editorial Pitch */}
           <div className="lg:col-span-7 space-y-6 text-left">
-            {/* Live Status & Clinic Pill */}
             <div className="flex flex-wrap items-center gap-3">
               <LiveClinicStatus variant="pill" />
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white border border-slate-200 text-slate-700 shadow-2xs">
@@ -74,7 +70,6 @@ export function Hero() {
               </span>
             </div>
 
-            {/* H1 Heading */}
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.15]">
               Senyum Sehat &amp; Percaya Diri,{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0E7490] to-cyan-600">
@@ -82,12 +77,10 @@ export function Hero() {
               </span>.
             </h1>
 
-            {/* Subtitle */}
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal max-w-xl">
               Klinik dokter gigi spesialis dengan teknologi pemindaian digital 3D, anestesi tanpa rasa sakit, dan ruang perawatan privat yang menenangkan.
             </p>
 
-            {/* Direct Action Buttons */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
               <a
                 href="#booking"
@@ -110,7 +103,6 @@ export function Hero() {
               </a>
             </div>
 
-            {/* Quick Metrics */}
             <div className="pt-6 border-t border-slate-200/80 flex flex-wrap items-center gap-6 text-xs text-slate-600">
               <div className="flex items-center gap-2">
                 <Award className="w-4 h-4 text-[#0E7490]" aria-hidden="true" />
@@ -123,7 +115,6 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Right Column: Hero Visual Studio Image */}
           <div className="lg:col-span-5 relative">
             <div className="relative mx-auto max-w-md lg:max-w-none">
               <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-slate-100">
@@ -147,7 +138,6 @@ export function Hero() {
                 </div>
               </div>
 
-              {/* Floating Reassurance Badge 1: Painless */}
               <div className="absolute -bottom-5 -left-4 sm:bottom-6 sm:-left-6 bg-white/95 backdrop-blur-md p-3.5 rounded-2xl shadow-xl border border-slate-100 flex items-center gap-3 max-w-[240px]">
                 <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
                   <ShieldCheck className="w-5 h-5" aria-hidden="true" />
@@ -158,7 +148,6 @@ export function Hero() {
                 </div>
               </div>
 
-              {/* Floating Reassurance Badge 2: 3D Scanner */}
               <div className="hidden sm:flex absolute -top-4 -right-4 bg-white/95 backdrop-blur-md p-3 rounded-2xl shadow-lg border border-slate-100 items-center gap-2.5">
                 <div className="w-8 h-8 rounded-lg bg-cyan-50 text-[#0E7490] flex items-center justify-center shrink-0">
                   <Sparkles className="w-4 h-4" aria-hidden="true" />
@@ -172,7 +161,6 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Eye-Catching "Layanan Utama Kami" 4-Card Quick Showcase Bar */}
         <div className="mt-14 pt-10 border-t border-slate-200">
           <div className="flex items-center justify-between mb-4">
             <span className="text-xs font-bold uppercase tracking-wider text-[#0E7490]">

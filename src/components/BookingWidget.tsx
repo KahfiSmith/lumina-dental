@@ -7,10 +7,8 @@ import {
   User,
   MessageCircle,
   Phone,
-  Clock,
   Stethoscope,
   CheckCircle2,
-  ShieldCheck,
 } from "lucide-react";
 
 export function BookingWidget() {
@@ -43,7 +41,6 @@ Mohon konfirmasi ketersediaan slot waktu dokter. Terima kasih!`;
   return (
     <section id="booking" className="py-16 sm:py-24 bg-white text-slate-900 border-t border-slate-200">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <div className="text-center max-w-xl mx-auto mb-10 sm:mb-12">
           <span className="text-xs font-bold uppercase tracking-widest text-[#0E7490] block mb-2">
             Reservasi Cepat &amp; Bebas Antre
@@ -56,9 +53,7 @@ Mohon konfirmasi ketersediaan slot waktu dokter. Terima kasih!`;
           </p>
         </div>
 
-        {/* Simplified Clinical Booking Form */}
         <div className="bg-slate-50 rounded-3xl p-6 sm:p-9 border border-slate-200 shadow-sm space-y-6">
-          {/* 1. Pilih Tindakan */}
           <div>
             <label className="text-xs font-bold uppercase tracking-wider text-slate-800 block mb-2.5 flex items-center gap-2">
               <Stethoscope className="w-4 h-4 text-[#0E7490]" aria-hidden="true" />
@@ -89,7 +84,6 @@ Mohon konfirmasi ketersediaan slot waktu dokter. Terima kasih!`;
             </div>
           </div>
 
-          {/* 2. Dokter & Tanggal */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label
@@ -134,7 +128,6 @@ Mohon konfirmasi ketersediaan slot waktu dokter. Terima kasih!`;
             </div>
           </div>
 
-          {/* 3. Nama Pasien */}
           <div>
             <label
               htmlFor="patient-name"
@@ -152,7 +145,6 @@ Mohon konfirmasi ketersediaan slot waktu dokter. Terima kasih!`;
             />
           </div>
 
-          {/* Submit Action */}
           <div className="pt-2">
             <a
               href={generateWhatsAppUrl()}
@@ -169,7 +161,6 @@ Mohon konfirmasi ketersediaan slot waktu dokter. Terima kasih!`;
           </div>
         </div>
 
-        {/* Emergency Help */}
         <div className="text-center mt-6 text-xs text-slate-500">
           Sakit gigi akut atau darurat?{" "}
           <a

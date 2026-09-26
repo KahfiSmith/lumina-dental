@@ -8,7 +8,6 @@ export function Cases() {
   return (
     <section id="hasil" className="py-16 sm:py-24 bg-slate-50 text-slate-900 border-t border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-14">
           <span className="text-xs font-bold uppercase tracking-widest text-[#0E7490] block mb-2">
             Dokumentasi Klinis
@@ -21,7 +20,6 @@ export function Cases() {
           </p>
         </div>
 
-        {/* Clean Transformation Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {cases.map((c) => (
             <div
@@ -29,7 +27,6 @@ export function Cases() {
               className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group"
             >
               <div>
-                {/* Photo */}
                 <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100">
                   <Image
                     src={c.image}
@@ -44,7 +41,6 @@ export function Cases() {
                   </div>
                 </div>
 
-                {/* Details */}
                 <div className="p-4 space-y-2">
                   <h3 className="font-bold text-sm text-slate-900 leading-snug">
                     {c.title}
@@ -70,7 +66,6 @@ export function Cases() {
                 </div>
               </div>
 
-              {/* Action */}
               <div className="p-4 pt-0">
                 <a
                   href={`https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(

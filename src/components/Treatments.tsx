@@ -30,7 +30,6 @@ export function Treatments() {
   return (
     <section id="layanan" className="py-16 sm:py-24 bg-white text-slate-900 border-t border-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Clean Header */}
         <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
           <span className="text-xs font-bold uppercase tracking-widest text-[#0E7490] block mb-2">
             Perawatan Gigi Komprehensif
@@ -43,7 +42,6 @@ export function Treatments() {
           </p>
         </div>
 
-        {/* Category Pills */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
           {categories.map((cat) => {
             const isActive = activeCategory === cat.id;
@@ -65,7 +63,6 @@ export function Treatments() {
           })}
         </div>
 
-        {/* Visual-First Treatment Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
           {filtered.map((item) => (
             <div
@@ -73,7 +70,6 @@ export function Treatments() {
               className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md hover:border-[#0E7490]/40 transition-all duration-300 flex flex-col justify-between group"
             >
               <div>
-                {/* Photo with Overlay Badges */}
                 <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100">
                   <Image
                     src={item.image}
@@ -96,7 +92,6 @@ export function Treatments() {
                   )}
                 </div>
 
-                {/* Details */}
                 <div className="p-5 space-y-2.5">
                   <h3 className="font-bold text-base sm:text-lg text-slate-900 group-hover:text-[#0E7490] transition-colors leading-snug">
                     {item.name}
@@ -120,7 +115,6 @@ export function Treatments() {
                 </div>
               </div>
 
-              {/* Price & Action Row */}
               <div className="p-5 pt-3 border-t border-slate-100 flex items-center justify-between gap-3 bg-slate-50/50">
                 <div>
                   <span className="text-[10px] uppercase font-bold text-slate-400 block">

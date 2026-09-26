@@ -31,7 +31,6 @@ export function Sterilization() {
   return (
     <section id="sterilisasi" className="py-16 sm:py-24 bg-white text-slate-900 border-t border-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-14">
           <span className="text-xs font-bold uppercase tracking-widest text-[#0E7490] block mb-2">
             Standar Fasilitas &amp; Higienitas
@@ -44,7 +43,6 @@ export function Sterilization() {
           </p>
         </div>
 
-        {/* 4-Bento Visual Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((item, idx) => {
             const Icon = item.icon;

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { clinicData } from "@/data/dental";
-import { Phone, MessageCircle, MapPin, Shield } from "lucide-react";
+import { Phone, MessageCircle, Shield } from "lucide-react";
 
 export function Footer() {
   const { contact, operatingLicense, schedule } = clinicData;
@@ -10,13 +10,12 @@ export function Footer() {
     <footer className="bg-slate-950 text-slate-300 pt-16 pb-12 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 pb-12 border-b border-slate-800">
-          {/* Brand Info */}
           <div className="lg:col-span-4 space-y-4">
             <Link href="#" className="flex items-center gap-2.5">
               <div className="w-8 h-8 rounded-lg bg-[#0E7490] flex items-center justify-center text-white">
                 <svg className="w-5 h-5" viewBox="0 0 32 32" fill="none" stroke="currentColor">
                   <path
-                    d="M16 6c-4.5 0-7 2.5-7 6 0 3.5 1.5 8 2.5 11.5 1 3.5 2.5 3.5 3.5 1 1-2.5 1-2.5 1-2.5s0 0 1 2.5c1 2.5 2.5 2.5 3.5-1C21.5 20 23 15.5 23 12c0-3.5-2.5-6-7-6z"
+                    d="M16 6c-4.5 0-7 2.5-7 6 0 3.5 1.5 8 2.5 11.5 1 3.5 2.5 3.5 1 1-2.5 1-2.5 1-2.5s0 0 1 2.5c1 2.5 2.5 2.5 3.5-1C21.5 20 23 15.5 23 12c0-3.5-2.5-6-7-6z"
                     strokeWidth="2.2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -38,7 +37,6 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Quick Links */}
           <div className="lg:col-span-3 space-y-3">
             <p className="font-bold text-xs uppercase tracking-wider text-white">
               Menu Layanan
@@ -56,7 +54,7 @@ export function Footer() {
               </li>
               <li>
                 <a href="#layanan" className="hover:text-white transition-colors">
-                  Behel Gigi Sapphire & Metal
+                  Behel Gigi Sapphire &amp; Metal
                 </a>
               </li>
               <li>
@@ -77,7 +75,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Clinic Hours */}
           <div className="lg:col-span-3 space-y-3">
             <p className="font-bold text-xs uppercase tracking-wider text-white">
               Jam Praktek Klinik
@@ -95,7 +92,6 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Contacts */}
           <div className="lg:col-span-2 space-y-3">
             <p className="font-bold text-xs uppercase tracking-wider text-white">
               Kontak Cepat
@@ -123,13 +119,12 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
           <p>
             &copy; {currentYear} {clinicData.name}. All rights reserved.
           </p>
           <p className="text-slate-600">
-            Didesain untuk kenyamanan & kepercayaan pasien gigi di Surabaya.
+            Didesain untuk kenyamanan &amp; kepercayaan pasien gigi di Surabaya.
           </p>
         </div>
       </div>

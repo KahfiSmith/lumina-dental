@@ -21,8 +21,8 @@ export function getClinicHoursStatus(date: Date = new Date()): ClinicHoursStatus
   const currentMinutes = hour * 60 + minute;
 
   const isSunday = weekday === "Sun";
-  const openMinutes = isSunday ? 10 * 60 : 9 * 60; // 10:00 on Sunday, 09:00 Mon-Sat
-  const closeMinutes = isSunday ? 17 * 60 : 21 * 60; // 17:00 on Sunday, 21:00 Mon-Sat
+  const openMinutes = isSunday ? 10 * 60 : 9 * 60;
+  const closeMinutes = isSunday ? 17 * 60 : 21 * 60;
   const closeTimeLabel = isSunday ? "17:00 WIB" : "21:00 WIB";
 
   const isOpen = currentMinutes >= openMinutes && currentMinutes < closeMinutes;

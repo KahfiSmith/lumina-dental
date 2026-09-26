@@ -8,7 +8,6 @@ export function Doctors() {
   return (
     <section id="dokter" className="py-16 sm:py-24 bg-slate-50 text-slate-900 border-t border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-14">
           <span className="text-xs font-bold uppercase tracking-widest text-[#0E7490] block mb-2">
             Tenaga Medis Berpengalaman
@@ -21,7 +20,6 @@ export function Doctors() {
           </p>
         </div>
 
-        {/* Doctor Grid: 4-Column Clean Profile Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {doctors.map((doc) => (
             <div
@@ -29,7 +27,6 @@ export function Doctors() {
               className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group"
             >
               <div>
-                {/* Portrait Photo */}
                 <div className="relative aspect-[3/4] w-full bg-slate-100 overflow-hidden">
                   <Image
                     src={doc.photo}
@@ -45,7 +42,6 @@ export function Doctors() {
                   )}
                 </div>
 
-                {/* Content */}
                 <div className="p-4 sm:p-5 space-y-2.5">
                   <div>
                     <h3 className="font-bold text-base text-slate-900 leading-snug">
@@ -65,7 +61,6 @@ export function Doctors() {
                     {doc.bio}
                   </p>
 
-                  {/* Focus Chips */}
                   <div className="flex flex-wrap gap-1 pt-1">
                     {doc.focusTags.slice(0, 2).map((tag, idx) => (
                       <span
@@ -79,7 +74,6 @@ export function Doctors() {
                 </div>
               </div>
 
-              {/* Schedule & Action Footer */}
               <div className="p-4 sm:p-5 pt-0">
                 <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100 text-[11px] text-slate-700 mb-3 flex items-start gap-1.5">
                   <Clock className="w-3.5 h-3.5 text-[#0E7490] shrink-0 mt-0.5" aria-hidden="true" />

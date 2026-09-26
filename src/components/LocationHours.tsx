@@ -8,25 +8,21 @@ export function LocationHours() {
   return (
     <section id="lokasi" className="py-20 sm:py-28 bg-slate-50 text-slate-900 border-t border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <span className="text-xs font-bold uppercase tracking-widest text-[#0E7490] block mb-2">
-            Akses Mudah & Nyaman
+            Akses Mudah &amp; Nyaman
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
-            Lokasi Klinik & Jadwal Praktek
+            Lokasi Klinik &amp; Jadwal Praktek
           </h2>
           <p className="text-base text-slate-600 leading-relaxed">
             Berlokasi strategis di koridor utama Surabaya Barat dengan area parkir mobil dan motor yang luas serta akses ramah kursi roda.
           </p>
         </div>
 
-        {/* 2-Column Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          {/* Left Details */}
           <div className="lg:col-span-5 bg-white p-8 sm:p-10 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-6">
             <div className="space-y-6">
-              {/* Address */}
               <div className="space-y-2">
                 <div className="flex items-center gap-2 text-[#0E7490]">
                   <MapPin className="w-5 h-5" aria-hidden="true" />
@@ -42,7 +38,6 @@ export function LocationHours() {
                 </p>
               </div>
 
-              {/* Schedule */}
               <div className="space-y-3 pt-4 border-t border-slate-100">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div className="flex items-center gap-2 text-[#0E7490]">
@@ -67,7 +62,6 @@ export function LocationHours() {
                 </div>
               </div>
 
-              {/* Emergency Contacts */}
               <div className="space-y-3 pt-4 border-t border-slate-100">
                 <div className="text-xs font-bold uppercase tracking-wider text-[#0E7490]">
                   Kontak Cepat
@@ -95,7 +89,6 @@ export function LocationHours() {
               </div>
             </div>
 
-            {/* Directions Action */}
             <div className="pt-4 border-t border-slate-100">
               <a
                 href={contact.googleMapsUrl}
@@ -109,7 +102,6 @@ export function LocationHours() {
             </div>
           </div>
 
-          {/* Right Map Embed */}
           <div className="lg:col-span-7 bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs min-h-[380px] lg:min-h-full">
             <iframe
               src={contact.googleMapsEmbedUrl}
