@@ -1,166 +1,206 @@
 "use client";
 
 import Image from "next/image";
-import { clinicData } from "@/data/dental";
-import { CalendarCheck, MessageCircle, ShieldCheck, HeartHandshake, ChevronRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Star, ShieldCheck, MapPin, Scan, Clock } from "lucide-react";
 
 export function Hero() {
-  const { contact } = clinicData;
-
-  const keyComforts = [
-    {
-      title: "Ruang Periksa Privat",
-      desc: "Suasana tenang, kedap suara, dan bebas aroma obat rumah sakit.",
-    },
-    {
-      title: "Pemeriksaan Digital 3D",
-      desc: "Pemindaian optik instan tanpa cetakan adonan pasta mual.",
-    },
-    {
-      title: "Anestesi & Tindakan Lembut",
-      desc: "Protokol ramah cemas agar setiap tindakan bebas rasa sakit.",
-    },
-    {
-      title: "Transparansi Biaya",
-      desc: "Penjelasan diagnosis dan estimasi biaya jelas sebelum tindakan.",
-    },
-  ];
 
   return (
-    <section className="relative bg-[#FAF8F5] pt-28 pb-16 sm:pt-36 sm:pb-24 border-b border-[#E5DFD5] overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+    <section className="relative bg-[#F9F9FB] pt-28 pb-16 sm:pt-36 sm:pb-24 border-b border-[#E5E7EB] overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(#12151A_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.03] pointer-events-none" />
 
-        {/* Hero Split Layout */}
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-          {/* Left Column: Heading, Narrative, and CTAs */}
-          <div className="lg:col-span-6 flex flex-col justify-center">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#1E242B] leading-[1.2]">
-              Perawatan gigi yang dirancang untuk kenyamanan Anda.
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 relative">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          <div className="lg:col-span-7 flex flex-col justify-center relative z-10">
+            <div className="flex flex-wrap items-center gap-2 mb-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#12151A] text-white text-[11px] font-mono tracking-widest uppercase">
+                <span className="w-2 h-2 rounded-full bg-[#00D284] animate-pulse" />
+                <span>Modern Smile Culture : Surabaya Studio</span>
+              </div>
+
+              <div className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 bg-white border border-[#E5E7EB] text-[11px] font-mono text-[#64748B] tracking-wider uppercase">
+                <MapPin className="w-3 h-3 text-[#1D4ED8]" />
+                <span>Mayjen Sungkono 88</span>
+              </div>
+
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#E6FBF2] border border-[#00D284]/30 text-[11px] font-mono font-bold text-[#00A868] tracking-wider uppercase">
+                <ShieldCheck className="w-3 h-3 text-[#00A868]" />
+                <span>Resmi PBDI</span>
+              </div>
+            </div>
+
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-[80px] font-extrabold tracking-tighter text-[#12151A] uppercase leading-[0.93] font-sans">
+              Smile
+              <span className="block text-[#1D4ED8] mt-1">Like You</span>
+              <span className="block mt-1">Mean It.</span>
             </h1>
 
-            <p className="mt-5 text-base sm:text-lg text-[#5E6773] leading-relaxed font-normal">
-              Kami hadir untuk menghilangkan rasa takut ke dokter gigi. Nikmati perawatan modern dengan dokter spesialis berpengalaman, teknologi pemindaian 3D tanpa mual, dan sentuhan yang lembut di setiap tahapan.
+            <p className="mt-6 text-base sm:text-lg text-[#4B5563] leading-relaxed max-w-xl font-normal">
+              Perawatan gigi kontemporer yang menggabungkan akurasi pemindaian optik 3D, dokter spesialis berempati, dan ruang studio tenang tanpa aroma rumah sakit lama.
             </p>
 
-            {/* CTAs */}
-            <div className="mt-8 flex flex-wrap items-center gap-4">
+            <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
               <a
                 href="#booking"
-                className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full bg-[#246A60] hover:bg-[#1B524A] px-7 text-sm font-semibold text-white transition-all shadow-sm"
+                className="inline-flex h-13 items-center justify-center gap-3 bg-[#12151A] hover:bg-[#1D4ED8] px-8 text-xs font-bold text-white tracking-widest uppercase transition-all shadow-md group"
               >
-                <CalendarCheck className="w-4 h-4" />
-                <span>Pilih Jadwal Kunjungan</span>
+                <span>Book A Visit</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </a>
 
-              <a
-                href={`https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(
-                  "Halo Lumina Dental, saya ingin konsultasi mengenai keluhan gigi dan jadwal dokter yang tersedia."
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full bg-white hover:bg-[#F2EFE9] border border-[#E5DFD5] px-6 text-sm font-semibold text-[#1E242B] transition-all"
-              >
-                <MessageCircle className="w-4 h-4 text-[#246A60]" />
-                <span>Konsultasi WhatsApp</span>
-              </a>
-            </div>
-
-            {/* Sub-link */}
-            <div className="mt-5">
               <a
                 href="#layanan"
-                className="inline-flex items-center gap-1.5 text-xs font-medium text-[#246A60] hover:underline"
+                className="inline-flex h-13 items-center justify-center gap-2.5 bg-white hover:bg-[#F1F3F7] border border-[#E5E7EB] px-7 text-xs font-bold text-[#12151A] tracking-widest uppercase transition-all"
               >
-                <span>Lihat katalog lengkap perawatan &amp; estimasi biaya</span>
-                <ChevronRight className="w-3.5 h-3.5" />
+                <span>Explore Smile Menu</span>
+                <ArrowUpRight className="w-4 h-4 text-[#1D4ED8]" />
               </a>
             </div>
 
-            {/* Trust Metrics */}
-            <div className="mt-12 pt-8 border-t border-[#E5DFD5] grid grid-cols-3 gap-4 sm:gap-6">
-              <div>
-                <span className="block text-2xl sm:text-3xl font-bold text-[#1E242B]">
-                  10+ Thn
-                </span>
-                <span className="text-xs text-[#5E6773] mt-0.5 block">
-                  Pengalaman Praktik
-                </span>
+            <div className="mt-8 flex flex-wrap items-center gap-4 pt-1">
+              <div className="flex -space-x-2 overflow-hidden">
+                <div className="inline-block h-9 w-9 rounded-full ring-2 ring-[#F9F9FB] overflow-hidden relative bg-slate-200">
+                  <Image
+                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=120&auto=format&fit=crop"
+                    alt="Pasien Lumina Dental Studio"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="inline-block h-9 w-9 rounded-full ring-2 ring-[#F9F9FB] overflow-hidden relative bg-slate-200">
+                  <Image
+                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=120&auto=format&fit=crop"
+                    alt="Pasien Lumina Dental Studio"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="inline-block h-9 w-9 rounded-full ring-2 ring-[#F9F9FB] overflow-hidden relative bg-slate-200">
+                  <Image
+                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=120&auto=format&fit=crop"
+                    alt="Pasien Lumina Dental Studio"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="inline-block h-9 w-9 rounded-full ring-2 ring-[#F9F9FB] bg-[#12151A] text-white text-[11px] font-mono font-bold flex items-center justify-center">
+                  +380
+                </div>
               </div>
-              <div>
-                <span className="block text-2xl sm:text-3xl font-bold text-[#246A60]">
-                  5.000+
-                </span>
-                <span className="text-xs text-[#5E6773] mt-0.5 block">
-                  Pasien Terlayani
-                </span>
+
+              <div className="text-xs font-mono">
+                <div className="flex items-center gap-1.5 font-bold text-[#12151A]">
+                  <div className="flex text-[#FF5A36]">
+                    <Star className="w-3.5 h-3.5 fill-[#FF5A36]" />
+                    <Star className="w-3.5 h-3.5 fill-[#FF5A36]" />
+                    <Star className="w-3.5 h-3.5 fill-[#FF5A36]" />
+                    <Star className="w-3.5 h-3.5 fill-[#FF5A36]" />
+                    <Star className="w-3.5 h-3.5 fill-[#FF5A36]" />
+                  </div>
+                  <span>4.9 / 5.0 Rating</span>
+                </div>
+                <span className="text-[11px] text-[#64748B]">Berdasarkan 380+ ulasan pasien terverifikasi</span>
               </div>
-              <div>
-                <span className="block text-2xl sm:text-3xl font-bold text-[#1E242B]">
-                  4.9 / 5.0
-                </span>
-                <span className="text-xs text-[#5E6773] mt-0.5 block">
-                  Ulasan Pasien Google
-                </span>
+            </div>
+
+            <div className="mt-10 pt-8 border-t border-[#E5E7EB] grid grid-cols-2 sm:grid-cols-4 gap-4 font-mono text-xs">
+              <div className="border-l-2 border-[#00D284] pl-3">
+                <span className="text-[10px] text-slate-400 block uppercase font-bold">01 : METHOD</span>
+                <span className="font-bold text-[#12151A]">Gentle Touch</span>
+                <span className="text-[10px] text-slate-500 block">Ramah Cemas & Tenang</span>
+              </div>
+
+              <div className="border-l-2 border-[#00D284] pl-3">
+                <span className="text-[10px] text-slate-400 block uppercase font-bold">02 : SCANNING</span>
+                <span className="font-bold text-[#12151A]">Digital 3D</span>
+                <span className="text-[10px] text-slate-500 block">Bebas Mual Adonan</span>
+              </div>
+
+              <div className="border-l-2 border-[#00D284] pl-3">
+                <span className="text-[10px] text-slate-400 block uppercase font-bold">03 : FACULTY</span>
+                <span className="font-bold text-[#12151A]">Spesialis Sp.</span>
+                <span className="text-[10px] text-slate-500 block">Dokter Resmi PBDI</span>
+              </div>
+
+              <div className="border-l-2 border-[#00D284] pl-3">
+                <span className="text-[10px] text-slate-400 block uppercase font-bold">04 : STUDIO</span>
+                <span className="font-bold text-[#12151A]">Mayjen Sungkono</span>
+                <span className="text-[10px] text-slate-500 block">Surabaya Barat</span>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Authentic Warm Photography & Ambient Badge */}
-          <div className="lg:col-span-6">
-            <div className="relative aspect-4/3 sm:aspect-16/11 w-full rounded-3xl overflow-hidden border border-[#E5DFD5] bg-[#F2EFE9] shadow-xs">
-              <Image
-                src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=85&w=1400&auto=format&fit=crop"
-                alt="Ruang perawatan klinik gigi Lumina Dental Surabaya yang tenang dan ramah cemas"
-                fill
-                priority
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-              {/* Subtle ambient light gradient at bottom */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1E242B]/40 via-transparent to-transparent pointer-events-none" />
+          <div className="lg:col-span-5 relative mt-4 lg:mt-0">
+            <div className="relative">
+              <div className="absolute -inset-2 bg-gradient-to-tr from-[#00D284]/20 via-transparent to-[#1D4ED8]/15 -rotate-1 hidden sm:block pointer-events-none border border-[#E5E7EB]" />
 
-              {/* Floating reassurance card */}
-              <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 bg-white/95 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-[#E5DFD5] shadow-xs">
-                <div className="flex items-start gap-3.5">
-                  <div className="w-10 h-10 rounded-xl bg-[#E4EFEA] text-[#246A60] flex items-center justify-center shrink-0">
-                    <HeartHandshake className="w-5 h-5" />
+              <div className="relative border-2 border-[#12151A] bg-white p-3 sm:p-4 shadow-2xl">
+                <div className="flex items-center justify-between px-2 py-1.5 border-b border-[#E5E7EB] font-mono text-[10px] text-slate-500 mb-2">
+                  <span className="text-[#1D4ED8] font-bold">CAMPAIGN 01 : EDITORIAL SMILE</span>
+                  <span>VOL. 26</span>
+                </div>
+
+                <div className="relative h-[420px] sm:h-[480px] w-full bg-[#12151A] overflow-hidden group">
+                  <Image
+                    src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=1000&q=80"
+                    alt="Perawatan gigi modern Lumina Dental Studio Surabaya"
+                    fill
+                    priority
+                    className="object-cover object-center contrast-[1.05] transition-transform duration-700 group-hover:scale-105"
+                    sizes="(max-width: 1024px) 100vw, 45vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#12151A]/85 via-transparent to-transparent opacity-90" />
+
+                  <div className="absolute top-3 left-3 bg-[#12151A]/90 text-[#00D284] font-mono text-[10px] px-2.5 py-1 border border-slate-700 uppercase tracking-wider">
+                    REAL PATIENT MOMENT
                   </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs font-semibold text-[#1E242B]">
-                        Ruang Periksa Privat Bebas Suara Bising
-                      </span>
-                      <span className="hidden sm:inline-block text-[10px] font-semibold text-[#246A60] bg-[#E4EFEA] px-2 py-0.5 rounded-full">
-                        Higienis
-                      </span>
+
+                  <div className="absolute top-3 right-3 bg-white/95 text-[#12151A] font-mono text-[10px] font-bold px-2.5 py-1 border border-[#E5E7EB] uppercase tracking-wider">
+                    SURABAYA : SBY
+                  </div>
+
+                  <div className="absolute bottom-3 left-3 right-3 bg-white/95 p-4 border border-[#E5E7EB] font-sans">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <div className="text-xs font-bold uppercase tracking-wider text-[#12151A]">
+                          Your Smile, Upgraded.
+                        </div>
+                        <p className="text-[11px] text-[#4B5563] mt-0.5 leading-snug">
+                          Tanpa tekanan, tanpa prosedur berlebihan. Preservasi enamel gigi asli dengan panduan teknologi presisi.
+                        </p>
+                      </div>
+                      <div className="w-9 h-9 rounded-full bg-[#E6FBF2] flex items-center justify-center shrink-0 text-[#00A868] font-bold text-xs border border-[#00D284]/30">
+                        4.9
+                      </div>
                     </div>
-                    <p className="mt-1 text-xs text-[#5E6773] leading-relaxed">
-                      Dilengkapi sirkulasi udara medis HEPA H14, musik relaksasi, dan dental chair ergonomis untuk kenyamanan maksimal.
-                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between px-2 py-2 text-[10px] font-mono text-slate-500 mt-1">
+                  <span>INTENTIONAL DENTISTRY</span>
+                  <span>SURABAYA : MAYJEN SUNGKONO 88</span>
+                </div>
+              </div>
+
+              <div className="hidden sm:flex items-center gap-3 absolute -bottom-5 -left-6 bg-white border-2 border-[#12151A] p-3 shadow-xl z-20 max-w-[250px]">
+                <div className="w-9 h-9 rounded-none bg-[#12151A] text-[#00D284] flex items-center justify-center shrink-0">
+                  <Scan className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-[11px] font-bold font-mono uppercase text-[#12151A]">
+                    Digital 3D Optical Scan
+                  </div>
+                  <div className="text-[10px] text-[#64748B] font-mono">
+                    0% cetak adonan mual
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
 
-        {/* Supporting Pillars (Anxiety Relief) */}
-        <div className="mt-16 pt-10 border-t border-[#E5DFD5]">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {keyComforts.map((item, idx) => (
-              <div
-                key={idx}
-                className="p-5 rounded-2xl bg-[#F2EFE9]/60 border border-[#E5DFD5]/80 hover:bg-white hover:border-[#246A60]/30 transition-all"
-              >
-                <div className="flex items-center gap-2 text-xs font-semibold text-[#246A60] mb-1.5">
-                  <ShieldCheck className="w-4 h-4" />
-                  <span>{item.title}</span>
-                </div>
-                <p className="text-xs text-[#5E6773] leading-relaxed">
-                  {item.desc}
-                </p>
+              <div className="hidden sm:flex items-center gap-2 absolute -top-4 -right-4 bg-[#12151A] text-white border border-[#12151A] px-3 py-1.5 shadow-xl z-20 font-mono text-[10px]">
+                <Clock className="w-3.5 h-3.5 text-[#00D284]" />
+                <span className="uppercase tracking-wider">Konsultasi Hari Ini Tersedia</span>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </div>

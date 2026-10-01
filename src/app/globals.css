@@ -4,40 +4,41 @@
   --font-sans: var(--font-jakarta);
   --font-display: var(--font-jakarta);
 
-  --color-warm-base: #FAF8F5;
-  --color-warm-surface: #F2EFE9;
-  --color-warm-tint: #EBF2EE;
-  --color-warm-card: #FFFFFF;
-  --color-warm-border: #E5DFD5;
-  --color-warm-border-light: #EFECE6;
-  --color-warm-charcoal: #1E242B;
-  --color-warm-muted: #5E6773;
-  --color-warm-teal: #246A60;
-  --color-warm-teal-hover: #1B524A;
-  --color-warm-teal-soft: #E4EFEA;
-  --color-warm-teal-border: #BCD9D2;
+  --color-smile-bg: #F9F9FB;
+  --color-smile-surface: #F1F3F7;
+  --color-smile-card: #FFFFFF;
+  --color-smile-charcoal: #12151A;
+  --color-smile-muted: #64748B;
+  --color-smile-border: #E5E7EB;
+  --color-smile-mint: #00D284;
+  --color-smile-mint-dark: #00A868;
+  --color-smile-mint-light: #E6FBF2;
+  --color-smile-cobalt: #1D4ED8;
+  --color-smile-cobalt-light: #EFF6FF;
+  --color-smile-coral: #FF5A36;
+  --color-smile-coral-light: #FFF1EE;
 }
 
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5.5rem;
-  background-color: #FAF8F5;
-  color: #1E242B;
+  background-color: #F9F9FB;
+  color: #12151A;
 }
 
 body {
-  background-color: #FAF8F5;
-  color: #1E242B;
+  background-color: #F9F9FB;
+  color: #12151A;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-  background-color: #E4EFEA;
-  color: #1E242B;
+  background-color: #00D284;
+  color: #12151A;
 }
 
 :focus-visible {
-  outline: 2px solid #246A60;
+  outline: 2px solid #1D4ED8;
   outline-offset: 2px;
 }

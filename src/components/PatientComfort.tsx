@@ -1,122 +1,90 @@
-import Image from "next/image";
-import { ShieldCheck, Heart, Sparkles, Wind, Eye, CheckCircle2 } from "lucide-react";
-
 export function PatientComfort() {
-  const comfortPoints = [
+  const pillars = [
     {
-      icon: Heart,
-      title: "Ruang Periksa Privat & Tenang",
-      desc: "Setiap ruang periksa berinsulasi kedap suara, dilengkapi aromaterapi alami dan musik relaksasi, bebas aroma obat rumah sakit.",
+      num: "01",
+      title: "Gentle Sensory Experience",
+      desc: "Ruang studio kedap suara dengan aromaterapi alami dan musik tenang. Tidak ada aroma kimia menyengat khas rumah sakit lama.",
     },
     {
-      icon: Sparkles,
-      title: "Pendekatan Lembut & Minim Nyeri",
-      desc: "Dokter kami mengutamakan kenyamanan psikologis pasien dengan teknik anestesi terarah dan komunikasi yang menenangkan.",
+      num: "02",
+      title: "Digital Optical 3D Scanning",
+      desc: "Pemetaan kontur mulut digital instan dengan kamera optik mikro. Ucapkan selamat tinggal pada adonan cetak gips yang memicu rasa mual.",
     },
     {
-      icon: Eye,
-      title: "Pemindaian Gigi Digital 3D",
-      desc: "Pemeriksaan kontur gigi secara instan menggunakan pemindai optik presisi tinggi tanpa rasa mual dari cetakan pasta konvensional.",
+      num: "03",
+      title: "Invasive-Minimal Treatment",
+      desc: "Dokter mengutamakan pelestarian struktur enamel asli. Kami tidak merekomendasikan tindakan agresif yang tidak esensial.",
     },
     {
-      icon: ShieldCheck,
-      title: "Sterilisasi Autoclave Kelas B",
-      desc: "Standar medis tertinggi Eropa dengan uap 134°C. Segel kantong instrumen baru dibuka dan digunting langsung di hadapan Anda.",
-    },
-    {
-      icon: Wind,
-      title: "Udara Murni HEPA H14",
-      desc: "Sistem filtrasi udara medis aktif menyaring 99.97% partikel aerosol mikroskopis di seluruh penjuru ruangan klinik.",
-    },
-    {
-      icon: CheckCircle2,
-      title: "Penjelasan Transparan Tanpa Kejutan",
-      desc: "Dokter memperlihatkan foto intraoral kondisi gigi Anda dan mendiskusikan opsi serta estimasi biaya sebelum tindakan dilakukan.",
+      num: "04",
+      title: "Hospital-Grade Asepsis",
+      desc: "Sterilisasi uap autoklaf Kelas B 134 derajat Celsius dan filtrasi udara HEPA H14. Segel instrumen steril selalu dibuka di depan Anda.",
     },
   ];
 
   return (
-    <section id="kenyamanan" className="scroll-mt-24 py-20 sm:py-28 bg-[#FAF8F5] text-[#1E242B] border-b border-[#E5DFD5]">
-      {/* Anchor for legacy link */}
+    <section id="kenyamanan" className="scroll-mt-24 py-20 sm:py-28 bg-white text-[#12151A] border-b border-[#E5E7EB]">
       <span id="sterilisasi" className="sr-only" aria-hidden="true" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          {/* Left Column: Heading and Comfort Features */}
-          <div className="lg:col-span-7">
-            <span className="text-xs font-semibold tracking-wider text-[#246A60] uppercase">
-              Kenyamanan Pasien
-            </span>
-            <h2 className="mt-2 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-[#1E242B] leading-snug">
-              Ruang perawatan yang dirancang untuk meredakan rasa cemas.
-            </h2>
-            <p className="mt-3 text-sm sm:text-base text-[#5E6773] leading-relaxed">
-              Banyak orang menunda perawatan gigi karena rasa takut atau pengalaman masa lalu yang kurang menyenangkan. Di Lumina Dental, kami menciptakan lingkungan yang mengayomi, steril, dan menghargai ketenangan Anda.
-            </p>
-
-            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {comfortPoints.map((item, idx) => {
-                const IconComponent = item.icon;
-                return (
-                  <div
-                    key={idx}
-                    className="p-5 rounded-2xl bg-white border border-[#E5DFD5] shadow-xs flex flex-col justify-between hover:border-[#246A60]/40 transition-all"
-                  >
-                    <div>
-                      <div className="w-9 h-9 rounded-xl bg-[#E4EFEA] text-[#246A60] flex items-center justify-center mb-3">
-                        <IconComponent className="w-4 h-4" />
-                      </div>
-                      <h3 className="text-sm font-bold text-[#1E242B]">
-                        {item.title}
-                      </h3>
-                      <p className="mt-1.5 text-xs text-[#5E6773] leading-relaxed">
-                        {item.desc}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Right Column: Interior & Authentic Clinic Imagery */}
-          <div className="lg:col-span-5 flex flex-col gap-6">
-            <div className="relative aspect-4/3 w-full rounded-3xl overflow-hidden border border-[#E5DFD5] bg-[#F2EFE9] shadow-xs">
-              <Image
-                src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=1000&auto=format&fit=crop"
-                alt="Suasana ruang klinik gigi Lumina Dental Surabaya yang tenang dan ramah"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 40vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1E242B]/50 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm rounded-xl p-3.5 border border-[#E5DFD5] text-xs">
-                <span className="font-semibold text-[#1E242B] block">
-                  Peralatan Medis Terkalibrasi &amp; Teruji
-                </span>
-                <span className="text-[11px] text-[#5E6773] mt-0.5 block">
-                  Izin Operasional Resmi Dinas Kesehatan Surabaya No. 503/412/KP/Dinkes-Sby/2023
-                </span>
+        <div className="border-b border-[#E5E7EB] pb-12 mb-16">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+            <div className="max-w-3xl">
+              <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-[#00A868] mb-4">
+                <span className="font-bold">SECTION 01</span>
+                <span>/</span>
+                <span>STUDIO PHILOSOPHY</span>
               </div>
+
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-[#12151A] leading-[1.02] font-sans">
+                Dentistry Doesn’t
+                <br />
+                Have To Feel
+                <br />
+                <span className="text-[#1D4ED8]">Clinical.</span>
+              </h2>
             </div>
 
-            <div className="p-6 rounded-3xl bg-[#E4EFEA] border border-[#BCD9D2]">
-              <h3 className="text-sm font-bold text-[#1E242B]">
-                Ada Pertanyaan tentang Prosedur Tindakan?
-              </h3>
-              <p className="mt-1.5 text-xs text-[#5E6773] leading-relaxed">
-                Anda dapat berkonsultasi mengenai keluhan gigi Anda secara online terlebih dahulu. Resepsionis medis kami akan menjelaskan tahapan dan perkiraan waktu dengan ramah.
+            <div className="max-w-md text-sm sm:text-base text-[#4B5563] leading-relaxed font-normal">
+              <p className="mb-3">
+                Kami mendefinisikan ulang pengalaman berkunjung ke dokter gigi. Menggabungkan standar keilmuan spesialis kedokteran gigi dengan kenyamanan ruang kontemporer yang memanusiakan pasien.
               </p>
-              <div className="mt-4">
-                <a
-                  href="#booking"
-                  className="inline-flex h-9 items-center justify-center rounded-full bg-[#246A60] hover:bg-[#1B524A] px-4 text-xs font-semibold text-white transition-all shadow-xs"
-                >
-                  Tanya Jadwal &amp; Prosedur
-                </a>
+              <div className="font-mono text-xs text-[#00A868] font-bold">
+                COMFORT + PRECISION + CONTEMPORARY CULTURE
               </div>
             </div>
           </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-l border-[#E5E7EB]">
+          {pillars.map((item) => (
+            <div
+              key={item.num}
+              className="p-8 border-r border-b border-[#E5E7EB] flex flex-col justify-between hover:bg-[#F9F9FB] transition-colors group"
+            >
+              <div>
+                <div className="flex items-center justify-between mb-8">
+                  <span className="text-2xl font-mono font-extrabold text-slate-300 group-hover:text-[#1D4ED8] transition-colors">
+                    {item.num}
+                  </span>
+                  <div className="w-2 h-2 rounded-full bg-[#00D284]" />
+                </div>
+
+                <h3 className="text-lg font-bold uppercase tracking-tight text-[#12151A] mb-3 font-sans">
+                  {item.title}
+                </h3>
+
+                <p className="text-xs sm:text-sm text-[#4B5563] leading-relaxed font-light">
+                  {item.desc}
+                </p>
+              </div>
+
+              <div className="pt-6 mt-8 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono text-slate-400">
+                <span>VERIFIED STANDARD</span>
+                <span className="font-bold text-[#12151A]">ACTIVE</span>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

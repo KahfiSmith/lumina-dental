@@ -1,19 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { clinicData } from "@/data/dental";
-import { Sparkles, CalendarCheck, Clock, CheckCircle2 } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 export function Treatments() {
   const [activeCategory, setActiveCategory] = useState<string>("all");
 
   const categories = [
-    { id: "all", label: "Semua Perawatan" },
-    { id: "umum", label: "Scaling & Rutin" },
-    { id: "estetika", label: "Whitening & Veneer" },
-    { id: "ortodonti", label: "Behel & Aligners" },
-    { id: "bedah", label: "Implan Titanium" },
+    { id: "all", label: "00 ALL SERVICES" },
+    { id: "umum", label: "01 SCALING & ROUTINE" },
+    { id: "estetika", label: "02 WHITENING & VENEERS" },
+    { id: "ortodonti", label: "03 BRACES & ALIGNERS" },
+    { id: "bedah", label: "04 TITANIUM IMPLANTS" },
   ];
 
   const filtered =
@@ -21,182 +20,183 @@ export function Treatments() {
       ? clinicData.treatments
       : clinicData.treatments.filter((t) => t.category === activeCategory);
 
+  const patientNeeds = [
+    {
+      question: "NEED A CHECK-UP?",
+      action: "Pembersihan karang gigi & deteksi dini digital",
+      desc: "Menghilangkan plak membandel dengan teknologi air-flow tanpa rasa ngilu tajam.",
+      treatment: "Ultrasonic Scaling & Airflow",
+    },
+    {
+      question: "NEED A BRIGHTER SMILE?",
+      action: "Pemutihan enamel instan tanpa merusak gigi",
+      desc: "Protokol LED whitening 1 jam mengangkat noda kopi dan teh hingga 4 tingkat lebih cerah.",
+      treatment: "LED Teeth Whitening",
+    },
+    {
+      question: "NEED TO FIX ALIGNMENT?",
+      action: "Merapikan susunan gigi tanpa behel kawat mencolok",
+      desc: "Clear aligners transparan dan behel sapphire estetik untuk proporsi gigitan yang rapi.",
+      treatment: "Clear Aligners 3D / Behel Sapphire",
+    },
+    {
+      question: "NEED TO REPLACE A TOOTH?",
+      action: "Restorasi gigi tanggal dengan pondasi titanium",
+      desc: "Implan gigi permanen yang menyatu dengan tulang rahang, berfungsi persis gigi asli.",
+      treatment: "Implan Gigi Titanium",
+    },
+  ];
+
   return (
-    <section id="layanan" className="scroll-mt-24 py-20 sm:py-28 bg-[#FAF8F5] text-[#1E242B] border-b border-[#E5DFD5]">
+    <section id="layanan" className="scroll-mt-24 py-20 sm:py-28 bg-white text-[#12151A] border-b border-[#E5E7EB]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-8 border-b border-[#E5DFD5]">
-          <div className="max-w-2xl">
-            <span className="text-xs font-semibold tracking-wider text-[#246A60] uppercase">
-              Katalog Perawatan
-            </span>
-            <h2 className="mt-2 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-[#1E242B]">
-              Layanan menyeluruh untuk kesehatan dan senyum alami Anda.
-            </h2>
-            <p className="mt-3 text-sm sm:text-base text-[#5E6773] leading-relaxed">
-              Setiap tindakan mengedepankan pendekatan invasif minimal untuk melestarikan jaringan gigi asli Anda dengan kenyamanan maksimal.
+        <div className="border-b border-[#E5E7EB] pb-12 mb-16">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+            <div>
+              <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-[#00A868] mb-3">
+                <span className="font-bold">SECTION 03</span>
+                <span>/</span>
+                <span>TREATMENT INDEX</span>
+              </div>
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-[#12151A] font-sans">
+                The Smile
+                <br />
+                Menu.
+              </h2>
+            </div>
+
+            <p className="max-w-md text-sm sm:text-base text-[#4B5563] leading-relaxed font-light">
+              Katalog perawatan dental terpadu dengan estimasi waktu dan tarif transparan. Ditangani langsung oleh dokter gigi spesialis dengan pendekatan pelestarian gigi asli.
             </p>
           </div>
+        </div>
 
-          {/* Filter Pills */}
-          <div className="flex flex-wrap gap-2 text-xs font-medium">
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                type="button"
-                onClick={() => setActiveCategory(cat.id)}
-                className={`px-4 py-2 rounded-full transition-all cursor-pointer ${
-                  activeCategory === cat.id
-                    ? "bg-[#246A60] text-white font-semibold shadow-xs"
-                    : "bg-[#F2EFE9] text-[#5E6773] hover:text-[#1E242B] hover:bg-[#EFEBE4]"
-                }`}
+        <div className="mb-20">
+          <div className="font-mono text-xs text-slate-400 uppercase tracking-widest mb-6 font-bold">
+            PATIENT EDITORIAL GUIDE : WHAT DO YOU NEED TODAY?
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {patientNeeds.map((need, idx) => (
+              <div
+                key={idx}
+                className="p-6 bg-[#F9F9FB] border border-[#E5E7EB] flex flex-col justify-between hover:border-[#1D4ED8] transition-colors group"
               >
-                {cat.label}
-              </button>
+                <div>
+                  <span className="font-mono text-xs text-[#1D4ED8] font-bold block mb-3">
+                    NEED 0{idx + 1}
+                  </span>
+                  <h3 className="text-lg font-extrabold uppercase tracking-tight text-[#12151A] mb-2 font-sans">
+                    {need.question}
+                  </h3>
+                  <p className="text-xs text-[#4B5563] leading-relaxed mb-4 font-light">
+                    {need.desc}
+                  </p>
+                </div>
+                <div className="pt-4 border-t border-[#E5E7EB] flex items-center justify-between">
+                  <span className="text-[11px] font-mono font-bold text-[#12151A]">
+                    {need.treatment}
+                  </span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-[#00A868] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </div>
+              </div>
             ))}
           </div>
         </div>
 
-        {/* Featured Treatment Spotlight: Smile Makeover & Aligners */}
-        <div className="mt-12 rounded-3xl bg-[#F2EFE9] border border-[#E5DFD5] p-6 sm:p-10 lg:p-12 mb-16 shadow-xs">
-          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            <div className="relative aspect-16/10 w-full rounded-2xl overflow-hidden bg-white border border-[#E5DFD5] lg:col-span-6">
-              <Image
-                src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=1200&auto=format&fit=crop"
-                alt="Simulasi Digital Smile Design dan Clear Aligners di Lumina Dental"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-              <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-[11px] font-semibold text-[#246A60] border border-[#BCD9D2] flex items-center gap-1.5 shadow-xs">
-                <Sparkles className="w-3.5 h-3.5 text-[#246A60]" />
-                <span>Perawatan Unggulan</span>
-              </div>
-            </div>
-
-            <div className="lg:col-span-6 flex flex-col justify-between space-y-5">
-              <div>
-                <span className="text-xs font-semibold text-[#246A60] uppercase tracking-wider">
-                  Estetika Senyum Presisi
-                </span>
-                <h3 className="mt-1 text-2xl sm:text-3xl font-bold text-[#1E242B] leading-snug">
-                  Digital Smile Makeover &amp; Clear Aligners 3D
-                </h3>
-                <p className="mt-3 text-sm text-[#5E6773] leading-relaxed">
-                  Kami menggabungkan pemindaian optik 3D dengan analisis harmoni wajah untuk merancang bentuk, lengkungan, dan senyum proporsional tanpa rasa cemas dan tanpa kawat logam yang mencolok.
-                </p>
-
-                <div className="mt-5 space-y-2 text-xs sm:text-sm text-[#1E242B]">
-                  <div className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#246A60] shrink-0 mt-0.5" />
-                    <span>Pemindaian intraoral 3D instan tanpa cetak adonan mual</span>
-                  </div>
-                  <div className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#246A60] shrink-0 mt-0.5" />
-                    <span>Simulasi visual hasil akhir senyum sebelum perawatan dimulai</span>
-                  </div>
-                  <div className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#246A60] shrink-0 mt-0.5" />
-                    <span>Ditangani langsung oleh dokter gigi spesialis ortodonti</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="pt-2 flex flex-wrap items-center gap-4">
-                <a
-                  href="#booking"
-                  className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-[#246A60] hover:bg-[#1B524A] px-6 text-xs font-semibold text-white transition-all shadow-xs"
-                >
-                  <CalendarCheck className="w-3.5 h-3.5" />
-                  <span>Konsultasi Smile Makeover</span>
-                </a>
-                <span className="text-xs text-[#5E6773]">
-                  Mulai Rp 12.000.000 • Tersedia cicilan 0%
-                </span>
-              </div>
-            </div>
-          </div>
+        <div className="flex flex-wrap gap-2 mb-10 pb-4 border-b border-[#E5E7EB] font-mono text-xs">
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              type="button"
+              onClick={() => setActiveCategory(cat.id)}
+              className={`px-4 py-2 transition-all cursor-pointer uppercase ${
+                activeCategory === cat.id
+                  ? "bg-[#12151A] text-white font-bold"
+                  : "bg-[#F9F9FB] text-[#4B5563] hover:text-[#12151A] border border-[#E5E7EB]"
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
         </div>
 
-        {/* Treatment Rows (Airy, Structured, Readable) */}
-        <div className="space-y-6">
-          {filtered.map((t, index) => (
-            <article
-              key={t.id}
-              className="p-6 sm:p-8 rounded-3xl bg-white border border-[#E5DFD5] shadow-xs hover:border-[#246A60]/40 transition-all grid lg:grid-cols-12 gap-6 lg:gap-8 items-center"
+        <div className="border-t border-[#E5E7EB] divide-y divide-[#E5E7EB]">
+          {filtered.map((item, idx) => (
+            <div
+              key={item.id}
+              className="py-8 lg:py-10 hover:bg-[#F9F9FB] transition-colors group px-2 sm:px-4"
             >
-              {/* Photo */}
-              <div className="relative aspect-16/10 lg:aspect-4/3 w-full rounded-2xl overflow-hidden bg-[#F2EFE9] border border-[#E5DFD5] lg:col-span-4">
-                <Image
-                  src={t.image}
-                  alt={t.name}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 30vw"
-                />
-                <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-2.5 py-0.5 rounded-full text-[10px] font-semibold text-[#246A60] border border-[#BCD9D2]">
-                  {t.tag}
-                </div>
-              </div>
-
-              {/* Information */}
-              <div className="lg:col-span-5 space-y-3">
-                <div className="flex items-center gap-2 text-xs text-[#5E6773]">
-                  <span className="font-mono text-[#246A60] font-semibold">
-                    0{index + 1}
-                  </span>
-                  <span>&bull;</span>
-                  <span className="inline-flex items-center gap-1">
-                    <Clock className="w-3 h-3 text-[#5E6773]" />
-                    {t.duration}
-                  </span>
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                <div className="lg:col-span-1 font-mono text-xs font-bold text-slate-400 group-hover:text-[#00A868] transition-colors">
+                  0{idx + 1}
                 </div>
 
-                <h3 className="text-xl sm:text-2xl font-bold text-[#1E242B]">
-                  {t.name}
-                </h3>
+                <div className="lg:col-span-4">
+                  <div className="flex items-center gap-2 mb-1 font-mono text-[10px] text-slate-400 uppercase">
+                    <span className="text-[#1D4ED8] font-bold">{item.id.toUpperCase()}</span>
+                    <span>/</span>
+                    <span>{item.category.toUpperCase()}</span>
+                  </div>
 
-                <p className="text-xs sm:text-sm text-[#5E6773] leading-relaxed">
-                  {t.description}
-                </p>
+                  <h3 className="text-xl sm:text-2xl font-extrabold uppercase tracking-tight text-[#12151A] mb-2 group-hover:text-[#1D4ED8] transition-colors font-sans">
+                    {item.name}
+                  </h3>
 
-                <div className="pt-2 text-xs text-[#5E6773] space-y-1">
-                  <p>
-                    <strong className="text-[#1E242B] font-medium">Cocok untuk:</strong> {t.recommendedFor}
+                  <p className="text-xs text-[#4B5563] leading-relaxed font-light font-sans mb-3">
+                    {item.description}
                   </p>
-                  {t.technologyBadge && (
-                    <p>
-                      <strong className="text-[#1E242B] font-medium">Teknologi:</strong> {t.technologyBadge}
-                    </p>
-                  )}
-                  {t.painScale && (
-                    <p>
-                      <strong className="text-[#1E242B] font-medium">Kenyamanan:</strong> {t.painScale} (Skor kepuasan: {t.comfortScore})
-                    </p>
-                  )}
-                </div>
-              </div>
 
-              {/* Price & CTA */}
-              <div className="lg:col-span-3 flex lg:flex-col items-center lg:items-end justify-between gap-4 pt-4 lg:pt-0 border-t lg:border-t-0 border-[#EFEBE4]">
-                <div className="lg:text-right">
-                  <span className="block text-[11px] text-[#5E6773]">
-                    Estimasi Biaya
-                  </span>
-                  <span className="text-base sm:text-lg font-bold text-[#1E242B]">
-                    {t.priceStart}
-                  </span>
+                  <div className="text-[11px] font-mono text-[#00A868] font-semibold">
+                    Highlight: {item.tag}
+                  </div>
                 </div>
 
-                <a
-                  href="#booking"
-                  className="inline-flex h-10 items-center justify-center gap-1.5 rounded-full border border-[#246A60] text-[#246A60] hover:bg-[#246A60] hover:text-white px-5 text-xs font-semibold transition-all"
-                >
-                  <CalendarCheck className="w-3.5 h-3.5" />
-                  <span>Pilih Jadwal</span>
-                </a>
+                <div className="lg:col-span-4 space-y-2 font-mono text-xs">
+                  <div className="p-3 bg-[#F9F9FB] border border-[#E5E7EB]">
+                    <span className="text-[9px] uppercase text-slate-400 block mb-1">
+                      KETERANGAN KLINIS:
+                    </span>
+                    <span className="text-[#12151A] font-sans text-xs">
+                      {item.recommendedFor}
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2 text-[11px]">
+                    <div className="p-2 border border-[#E5E7EB] bg-white">
+                      <span className="text-[9px] text-slate-400 block uppercase">ESTIMASI WAKTU</span>
+                      <span className="text-[#12151A]">{item.duration}</span>
+                    </div>
+                    <div className="p-2 border border-[#E5E7EB] bg-white">
+                      <span className="text-[9px] text-slate-400 block uppercase">LEVEL NYERI</span>
+                      <span className="text-[#00A868] font-bold">{item.painScale || "Nyaman"}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="lg:col-span-3 flex flex-col justify-between items-start lg:items-end h-full">
+                  <div className="text-left lg:text-right mb-4">
+                    <span className="text-[10px] font-mono uppercase text-slate-400 block">
+                      TARIF TINDAKAN
+                    </span>
+                    <span className="text-lg font-bold text-[#12151A] font-mono">
+                      {item.priceStart}
+                    </span>
+                    <span className="text-[10px] text-slate-400 block">
+                      Transparan di Awal
+                    </span>
+                  </div>
+
+                  <a
+                    href={`#booking`}
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-white hover:bg-[#12151A] text-[#12151A] hover:text-white border border-[#E5E7EB] hover:border-[#12151A] text-xs font-mono uppercase tracking-wider transition-colors"
+                  >
+                    <span>Pilih Perawatan</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                  </a>
+                </div>
               </div>
-            </article>
+            </div>
           ))}
         </div>
       </div>

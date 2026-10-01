@@ -3,40 +3,52 @@
 import { useState } from "react";
 import Image from "next/image";
 import { clinicData } from "@/data/dental";
-import { Clock, MessageCircle, CheckCircle2, SlidersHorizontal } from "lucide-react";
+import { SlidersHorizontal, ArrowUpRight } from "lucide-react";
 
 export function Cases() {
   const { cases, contact } = clinicData;
   const [sliderPos, setSliderPos] = useState<number>(50);
 
-  const featuredCase = cases[1]; // Whitening case
+  const featuredCase = cases[1];
+  const sideCases = cases.filter((c) => c.id !== featuredCase.id);
 
   return (
-    <section id="hasil" className="scroll-mt-24 py-20 sm:py-28 bg-[#FAF8F5] text-[#1E242B] border-b border-[#E5DFD5]">
-      {/* Anchor alias */}
+    <section id="hasil" className="scroll-mt-24 py-20 sm:py-28 bg-white text-[#12151A] border-b border-[#E5E7EB]">
       <span id="kasus" className="sr-only" aria-hidden="true" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
-        {/* Section Header */}
-        <div className="max-w-2xl mb-12 sm:mb-16">
-          <span className="text-xs font-semibold tracking-wider text-[#246A60] uppercase">
-            Dokumentasi Perawatan
-          </span>
-          <h2 className="mt-2 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-[#1E242B]">
-            Presisi klinis dan transformasi senyum sehat.
-          </h2>
-          <p className="mt-3 text-sm sm:text-base text-[#5E6773] leading-relaxed">
-            Setiap perawatan direncanakan secara individual dengan mempertimbangkan integritas enamel gigi, profil wajah, dan fungsi kunyah alami jangka panjang.
-          </p>
+        <div className="border-b border-[#E5E7EB] pb-10 mb-14">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+            <div>
+              <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-[#00A868] mb-3">
+                <span className="font-bold">SECTION 05</span>
+                <span>/</span>
+                <span>CLINICAL EVIDENCE</span>
+              </div>
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-[#12151A] font-sans">
+                Real Smiles.
+                <br />
+                Real Results.
+              </h2>
+            </div>
+
+            <p className="max-w-md text-sm sm:text-base text-[#4B5563] leading-relaxed">
+              Dokumentasi klinis autentik sebelum dan sesudah perawatan. Tanpa manipulasi digital kecantikan, mengedepankan keselarasan fungsional dan estetika natural.
+            </p>
+          </div>
         </div>
 
-        {/* Interactive Before & After Feature Comparison */}
-        <div className="rounded-3xl bg-[#F2EFE9] border border-[#E5DFD5] p-6 sm:p-10 mb-16 shadow-xs">
+        <div className="bg-[#F9F9FB] border border-[#E5E7EB] p-6 sm:p-10 mb-16">
+          <div className="flex flex-wrap items-center justify-between pb-4 mb-6 border-b border-[#E5E7EB] font-mono text-xs text-slate-500">
+            <span className="font-bold text-[#1D4ED8] uppercase">
+              FEATURED COMPARISON : {featuredCase.treatmentType}
+            </span>
+            <span>TIMELINE: {featuredCase.durationText}</span>
+          </div>
+
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            {/* Interactive Slider */}
-            <div className="lg:col-span-7">
-              <div className="relative aspect-16/10 w-full rounded-2xl overflow-hidden select-none bg-white border border-[#E5DFD5] shadow-xs">
-                {/* Background image (Sesudah / After) */}
+            <div className="lg:col-span-8">
+              <div className="relative aspect-16/10 w-full overflow-hidden select-none bg-black border border-[#E5E7EB]">
                 <Image
                   src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=1200&auto=format&fit=crop"
                   alt="Hasil sesudah perawatan teeth whitening Lumina Dental"
@@ -44,7 +56,6 @@ export function Cases() {
                   className="object-cover"
                 />
 
-                {/* Foreground image (Sebelum / Before) with clip-path */}
                 <div
                   className="absolute inset-0 overflow-hidden"
                   style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}
@@ -57,152 +68,129 @@ export function Cases() {
                   />
                 </div>
 
-                {/* Slider divider line */}
                 <div
-                  className="absolute top-0 bottom-0 w-1 bg-white shadow-lg pointer-events-none"
+                  className="absolute top-0 bottom-0 w-0.5 bg-white shadow-lg pointer-events-none"
                   style={{ left: `${sliderPos}%` }}
                 >
-                  <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-[#246A60] text-white flex items-center justify-center shadow-md">
-                    <SlidersHorizontal className="w-4 h-4" />
+                  <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-[#12151A] text-white flex items-center justify-center text-xs font-mono border border-white">
+                    <SlidersHorizontal className="w-3.5 h-3.5" />
                   </div>
                 </div>
 
-                {/* Labels */}
-                <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-[10px] font-bold text-[#1E242B] border border-[#E5DFD5] pointer-events-none">
-                  Sebelum
+                <div className="absolute bottom-4 left-4 bg-[#12151A]/90 px-3 py-1 font-mono text-[10px] text-white uppercase tracking-widest">
+                  BEFORE
                 </div>
-                <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-[10px] font-bold text-[#246A60] border border-[#BCD9D2] pointer-events-none">
-                  Sesudah (1 Jam)
+
+                <div className="absolute bottom-4 right-4 bg-[#00D284] px-3 py-1 font-mono text-[10px] text-[#12151A] uppercase tracking-widest font-bold">
+                  AFTER
                 </div>
               </div>
 
-              {/* Slider control input for accessibility */}
               <div className="mt-4 flex items-center gap-3">
-                <label htmlFor="comparison-range" className="text-xs text-[#5E6773] shrink-0 font-medium">
-                  Geser untuk membandingkan:
-                </label>
                 <input
-                  id="comparison-range"
                   type="range"
                   min="0"
                   max="100"
                   value={sliderPos}
                   onChange={(e) => setSliderPos(Number(e.target.value))}
-                  className="w-full accent-[#246A60] cursor-ew-resize"
-                  aria-label="Penggeser perbandingan sebelum dan sesudah perawatan"
+                  className="w-full accent-[#12151A] cursor-ew-resize h-1.5 bg-[#E5E7EB] rounded-lg"
+                  aria-label="Geser untuk perbandingan sebelum dan sesudah"
                 />
               </div>
             </div>
 
-            {/* Case Highlight Details */}
-            <div className="lg:col-span-5 space-y-4">
-              <span className="text-xs font-semibold text-[#246A60] uppercase tracking-wider">
-                Studi Kasus Unggulan
-              </span>
-              <h3 className="text-2xl font-bold text-[#1E242B] leading-snug">
-                {featuredCase.title}
-              </h3>
-              <p className="text-sm text-[#5E6773] leading-relaxed">
-                {featuredCase.description}
-              </p>
+            <div className="lg:col-span-4 flex flex-col justify-between h-full space-y-6">
+              <div>
+                <div className="text-[10px] font-mono uppercase text-[#00A868] font-bold mb-1">
+                  CASE ARCHIVE 01
+                </div>
 
-              <div className="space-y-2 text-xs text-[#1E242B] pt-2">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#246A60]" />
-                  <span><strong>Hasil:</strong> {featuredCase.resultHighlight}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-[#246A60]" />
-                  <span><strong>Durasi Tindakan:</strong> {featuredCase.durationText}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-4 h-4 rounded-full bg-[#E4EFEA] text-[#246A60] flex items-center justify-center font-bold text-[10px]">dr</span>
-                  <span><strong>Dokter Penanggung Jawab:</strong> {featuredCase.doctorInCharge}</span>
+                <h3 className="text-xl font-bold uppercase tracking-tight text-[#12151A] mb-2 font-sans">
+                  {featuredCase.title}
+                </h3>
+
+                <p className="text-xs text-[#4B5563] leading-relaxed mb-6 font-light">
+                  {featuredCase.description}
+                </p>
+
+                <div className="space-y-3 font-mono text-xs p-4 bg-white border border-[#E5E7EB]">
+                  <div>
+                    <span className="text-[9px] uppercase text-slate-400 block font-bold">
+                      PROSEDUR TINDAKAN:
+                    </span>
+                    <span className="text-slate-800 font-sans text-xs">
+                      {featuredCase.treatmentType}
+                    </span>
+                  </div>
+
+                  <div className="pt-2 border-t border-[#E5E7EB]">
+                    <span className="text-[9px] uppercase text-slate-400 block font-bold">
+                      HASIL KLINIS:
+                    </span>
+                    <span className="text-slate-800 font-sans text-xs">
+                      {featuredCase.resultHighlight}
+                    </span>
+                  </div>
+
+                  <div className="pt-2 border-t border-[#E5E7EB]">
+                    <span className="text-[9px] uppercase text-slate-400 block font-bold">
+                      DOKTER PENANGGUNG JAWAB:
+                    </span>
+                    <span className="text-[#1D4ED8] font-sans text-xs font-semibold">
+                      {featuredCase.doctorInCharge}
+                    </span>
+                  </div>
                 </div>
               </div>
 
-              <div className="pt-4">
-                <a
-                  href={`https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(
-                    `Halo Lumina Dental, saya melihat studi kasus ${featuredCase.title}. Saya ingin konsultasi apakah kondisi gigi saya cocok dengan perawatan ini?`
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-[#246A60] hover:bg-[#1B524A] text-white px-6 text-xs font-semibold transition-all shadow-xs"
-                >
-                  <MessageCircle className="w-4 h-4" />
-                  <span>Konsultasi Kasus Ini via WhatsApp</span>
-                </a>
-              </div>
+              <a
+                href={`https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(
+                  `Halo Lumina Dental, saya ingin konsultasi mengenai prosedur ${featuredCase.treatmentType}.`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-center gap-2 py-3 bg-[#12151A] hover:bg-[#1D4ED8] text-white text-xs font-mono uppercase tracking-wider transition-colors"
+              >
+                <span>Konsultasikan Kasus Serupa</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
             </div>
           </div>
         </div>
 
-        {/* Other Cases Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-          {cases.filter((c) => c.id !== featuredCase.id).map((c, index) => (
-            <article
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {sideCases.map((c, idx) => (
+            <div
               key={c.id}
-              className="p-6 rounded-3xl bg-white border border-[#E5DFD5] shadow-xs flex flex-col justify-between hover:border-[#246A60]/40 transition-all"
+              className="p-6 bg-[#F9F9FB] border border-[#E5E7EB] flex flex-col justify-between hover:border-[#1D4ED8] transition-colors"
             >
               <div>
-                <div className="flex items-center justify-between pb-3 border-b border-[#EFEBE4]">
-                  <span className="text-xs font-mono text-[#246A60] font-semibold">
-                    Kasus 0{index + 1}
-                  </span>
-                  <span className="text-[11px] font-medium text-[#5E6773] bg-[#FAF8F5] px-2.5 py-0.5 rounded-full border border-[#E5DFD5]">
-                    {c.treatmentType}
-                  </span>
+                <div className="flex items-center justify-between font-mono text-xs text-slate-400 mb-2">
+                  <span className="text-[#00A868] font-bold">CASE RECORD 0{idx + 2}</span>
+                  <span>{c.durationText}</span>
                 </div>
 
-                <div className="relative aspect-16/10 w-full rounded-2xl overflow-hidden bg-[#F2EFE9] border border-[#E5DFD5] my-4">
-                  <Image
-                    src={c.image}
-                    alt={c.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover"
-                  />
-                  <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-xs text-white text-[10px] px-2 py-0.5 rounded-md flex items-center gap-1">
-                    <Clock className="w-3 h-3" />
-                    <span>{c.durationText}</span>
-                  </div>
-                </div>
-
-                <h3 className="text-base font-bold text-[#1E242B]">
+                <h4 className="text-lg font-bold uppercase tracking-tight text-[#12151A] mb-2 font-sans">
                   {c.title}
-                </h3>
-                <p className="mt-1.5 text-xs text-[#5E6773] leading-relaxed">
+                </h4>
+
+                <p className="text-xs text-[#4B5563] leading-relaxed mb-4 font-light">
                   {c.description}
                 </p>
 
-                <div className="mt-3 p-3 rounded-xl bg-[#FAF8F5] border border-[#EFEBE4] text-[11px] text-[#1E242B]">
-                  <p className="font-medium text-[#246A60]">Hasil:</p>
-                  <p className="text-[#5E6773] mt-0.5">{c.resultHighlight}</p>
+                <div className="p-3 bg-white border border-[#E5E7EB] font-mono text-xs space-y-1 mb-4">
+                  <div className="text-[10px] text-slate-400">TINDAKAN: {c.treatmentType}</div>
+                  <div className="text-[10px] text-slate-400">DOKTER: {c.doctorInCharge}</div>
                 </div>
               </div>
 
-              <div className="mt-5 pt-4 border-t border-[#EFEBE4]">
-                <a
-                  href={`https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(
-                    `Halo Lumina Dental, saya melihat kasus ${c.title}. Saya ingin konsultasi apakah kondisi gigi saya dapat dirawat dengan cara serupa?`
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full inline-flex h-9 items-center justify-center gap-1.5 rounded-xl bg-[#F2EFE9] hover:bg-[#246A60] text-[#1E242B] hover:text-white text-xs font-semibold transition-all"
-                >
-                  <MessageCircle className="w-3.5 h-3.5" />
-                  <span>Tanya Perawatan Ini</span>
-                </a>
+              <div className="pt-4 border-t border-[#E5E7EB] flex items-center justify-between text-xs font-mono">
+                <span className="text-slate-500">{c.resultHighlight}</span>
+                <span className="text-[#00A868] font-bold">VERIFIED</span>
               </div>
-            </article>
+            </div>
           ))}
         </div>
-
-        {/* Privacy Note */}
-        <p className="mt-8 text-center text-xs text-[#5E6773]">
-          Seluruh dokumentasi klinis dipublikasikan atas persetujuan pasien untuk tujuan edukasi dan transparansi medis.
-        </p>
       </div>
     </section>
   );

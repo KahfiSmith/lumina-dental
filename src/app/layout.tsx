@@ -8,16 +8,16 @@ const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-jakarta",
   display: "swap",
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(clinicData.seo.siteUrl),
   title: {
-    default: clinicData.seo.title,
+    default: "Lumina Dental Studio - Modern Smile Culture Surabaya",
     template: `%s | ${clinicData.name}`,
   },
-  description: clinicData.seo.description,
+  description: "Studio dokter gigi modern di Surabaya Barat yang mengedepankan presisi digital 3D, dokter spesialis ramah, dan suasana studio kontemporer tanpa rasa takut.",
   keywords: clinicData.seo.keywords,
   authors: [{ name: clinicData.name }],
   creator: clinicData.name,
@@ -26,8 +26,8 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: clinicData.seo.title,
-    description: clinicData.seo.description,
+    title: "Lumina Dental Studio - Modern Smile Culture",
+    description: "Perawatan gigi modern yang dirancang untuk kenyamanan dan senyum percaya diri Anda di Surabaya Barat.",
     url: clinicData.seo.siteUrl,
     siteName: clinicData.name,
     locale: "id_ID",
@@ -43,8 +43,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: clinicData.seo.title,
-    description: clinicData.seo.description,
+    title: "Lumina Dental Studio - Modern Smile Culture",
+    description: "Perawatan gigi modern yang dirancang untuk kenyamanan dan senyum percaya diri Anda di Surabaya Barat.",
     images: ["https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=85&w=1200&auto=format&fit=crop"],
   },
   robots: {
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#246A60",
+  themeColor: "#12151A",
   width: "device-width",
   initialScale: 1,
 };
@@ -66,10 +66,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id" className={`${jakarta.variable} scroll-smooth`}>
-      <body className="min-h-screen bg-[#FAF8F5] text-[#1E242B] antialiased font-sans selection:bg-[#E4EFEA] selection:text-[#1E242B]">
+      <body className="min-h-screen bg-[#F9F9FB] text-[#12151A] antialiased font-sans selection:bg-[#00D284] selection:text-[#12151A]">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2.5 focus:bg-[#246A60] focus:text-white focus:rounded-lg focus:shadow-lg text-sm font-semibold"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2.5 focus:bg-[#12151A] focus:text-white focus:rounded-none text-xs font-mono uppercase"
         >
           Lewati ke konten utama
         </a>

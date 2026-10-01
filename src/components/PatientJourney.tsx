@@ -1,83 +1,93 @@
-import { ArrowRight } from "lucide-react";
-
 export function PatientJourney() {
   const steps = [
     {
-      step: "01",
-      title: "Konsultasi Ramah",
-      subtitle: "Mendengarkan Keluhan Anda",
-      desc: "Ceritakan kebutuhan, keluhan gigi, atau rasa cemas Anda dengan leluasa. Dokter kami mendengarkan dengan penuh perhatian tanpa terburu-buru.",
+      num: "01",
+      title: "ARRIVE",
+      label: "Studio Welcome",
+      desc: "Disambut di lobi kontemporer yang tenang dengan alunan musik lembut, tanpa deru mesin bor yang bising.",
     },
     {
-      step: "02",
-      title: "Pemeriksaan Digital 3D",
-      subtitle: "Visualisasi Nyata Tanpa Mual",
-      desc: "Pemindaian optik intraoral resolusi tinggi menangkap kondisi rongga mulut Anda secara instan. Hasil dapat langsung Anda lihat di layar monitor.",
+      num: "02",
+      title: "CHECK",
+      label: "3D Digital Scan",
+      desc: "Pemindaian optik intraoral tanpa adonan cetak mual. Kondisi gigi langsung divisualisasikan di monitor di depan Anda.",
     },
     {
-      step: "03",
-      title: "Rencana Perawatan",
-      subtitle: "Transparan Tanpa Tekanan",
-      desc: "Dokter menjelaskan opsi tindakan terbaik, estimasi waktu, serta rincian biaya secara jelas. Anda memiliki kendali penuh untuk memutuskan.",
+      num: "03",
+      title: "TALK",
+      label: "Clear Discussion",
+      desc: "Diskusi santai dan transparan dengan dokter spesialis mengenai opsi tindakan, durasi, dan biaya tanpa tekanan.",
     },
     {
-      step: "04",
-      title: "Tindakan Nyaman",
-      subtitle: "Pendampingan Hingga Tuntas",
-      desc: "Perawatan dilakukan dengan anestesi lembut dan sentuhan yang cermat, diikuti panduan pemulihan serta kemudahan komunikasi via WhatsApp.",
+      num: "04",
+      title: "TREAT",
+      label: "Gentle Hands",
+      desc: "Perawatan dengan anestesi lembut dan pendekatan minim nyeri, didampingi kacamata pelindung dan jeda saat Anda butuh.",
+    },
+    {
+      num: "05",
+      title: "SMILE",
+      label: "Walk Out Confident",
+      desc: "Selesai perawatan dengan instruksi pemulihan yang jelas serta kemudahan follow-up langsung via WhatsApp.",
     },
   ];
 
   return (
-    <section id="alur" className="scroll-mt-24 py-20 sm:py-28 bg-[#F2EFE9] text-[#1E242B] border-b border-[#E5DFD5]">
+    <section id="alur" className="scroll-mt-24 py-20 sm:py-28 bg-[#F1F3F7] text-[#12151A] border-b border-[#E5E7EB]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
-        <div className="max-w-2xl">
-          <span className="text-xs font-semibold tracking-wider text-[#246A60] uppercase">
-            Alur Kunjungan Pasien
-          </span>
-          <h2 className="mt-2 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-[#1E242B]">
-            Kunjungan Anda, dibuat tenang dan sederhana.
-          </h2>
-          <p className="mt-3 text-sm sm:text-base text-[#5E6773] leading-relaxed">
-            Dari saat Anda melangkah masuk hingga selesai perawatan, setiap tahap dirancang agar Anda merasa aman, paham, dan terlayani dengan tulus.
-          </p>
+        <div className="border-b border-[#E5E7EB] pb-10 mb-14">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+            <div>
+              <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-[#00A868] mb-3">
+                <span className="font-bold">SECTION 02</span>
+                <span>/</span>
+                <span>THE DENTAL EXPERIENCE</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold uppercase tracking-tight text-[#12151A] font-sans">
+                What Happens
+                <br />
+                During Your Visit.
+              </h2>
+            </div>
+
+            <p className="max-w-md text-sm sm:text-base text-[#4B5563] leading-relaxed">
+              Lima tahapan kunjungan yang dirancang runtut, transparan, dan mengikis kecemasan Anda sejak detik pertama melangkah masuk studio.
+            </p>
+          </div>
         </div>
 
-        {/* Steps Grid: Horizontal on Desktop, Vertical on Mobile */}
-        <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {steps.map((item, idx) => (
             <div
-              key={item.step}
-              className="relative p-6 sm:p-7 rounded-2xl bg-white border border-[#E5DFD5] shadow-xs flex flex-col justify-between"
+              key={item.num}
+              className="p-6 bg-white border border-[#E5E7EB] flex flex-col justify-between hover:border-[#1D4ED8] transition-colors group relative"
             >
               <div>
-                <div className="flex items-center justify-between pb-4 border-b border-[#EFEBE4]">
-                  <span className="text-2xl font-bold text-[#246A60] font-mono">
-                    {item.step}
+                <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-6 font-mono">
+                  <span className="text-xs font-bold text-[#00D284]">
+                    PHASE {item.num}
                   </span>
-                  <span className="text-[11px] font-medium text-[#5E6773] bg-[#FAF8F5] px-2.5 py-1 rounded-full border border-[#E5DFD5]">
-                    Langkah {idx + 1}
+                  <span className="text-[10px] text-slate-400">
+                    0{idx + 1}/05
                   </span>
                 </div>
 
-                <div className="mt-4">
-                  <h3 className="text-base sm:text-lg font-bold text-[#1E242B]">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs font-medium text-[#246A60] mt-0.5">
-                    {item.subtitle}
-                  </p>
-                  <p className="mt-3 text-xs sm:text-sm text-[#5E6773] leading-relaxed">
-                    {item.desc}
-                  </p>
+                <div className="text-[10px] font-mono tracking-widest uppercase text-slate-400 mb-1">
+                  {item.label}
                 </div>
+
+                <h3 className="text-2xl font-extrabold uppercase tracking-tight text-[#12151A] mb-3 font-sans group-hover:text-[#1D4ED8] transition-colors">
+                  {item.title}
+                </h3>
+
+                <p className="text-xs text-[#4B5563] leading-relaxed font-light font-sans">
+                  {item.desc}
+                </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-[#EFEBE4] text-[11px] text-[#5E6773] flex items-center justify-between">
-                <span>Tahap Terarah</span>
-                {idx < steps.length - 1 && (
-                  <ArrowRight className="w-3.5 h-3.5 text-[#246A60] hidden lg:block" />
-                )}
+              <div className="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between text-[10px] font-mono text-slate-400">
+                <span>STAGE COMPLETE</span>
+                <span className="text-[#00A868] font-bold">READY</span>
               </div>
             </div>
           ))}

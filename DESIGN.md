@@ -1,47 +1,49 @@
 # Design Direction: Lumina Dental Studio
 
-## 1. Identity & Mood: Warm Modern Healthcare
-- **Concept:** Warm Modern Healthcare (Comfort + Trust + Human Connection).
-- **Visual Personality:**
-  - Welcoming rather than clinical
-  - Human rather than corporate
-  - Calm rather than dramatic
-  - Friendly rather than excessively luxurious or sterile
-- **Core Emotional Goal:** "Tempat ini terlihat nyaman, bersih, profesional, dan saya tidak perlu takut untuk datang."
-- **Dials:** `ENERGY 1 / RHYTHM 2 / MOTION 1`
-  - **ENERGY 1 (Calm):** Generous whitespace, reassuring typography, transparent treatment details, zero artificial urgency.
-  - **RHYTHM 2 (Balanced):** Purposeful variety across sections (split hero, comfort highlights, horizontal patient journey, clean treatment catalog, approachable specialist profiles, verified patient stories, and location concierge).
-  - **MOTION 1 (Subtle):** Gentle hover states, smooth menu toggle, accessible modal transitions; zero aggressive parallax or distracting loops.
+## 1. Identity & Mood: Modern Smile Culture
+- Concept: Modern Smile Culture (Dentistry + Contemporary Lifestyle Brand + Editorial Design + Playful Confidence).
+- Visual Personality:
+  - BOLD + FRESH + SOCIAL + EDITORIAL + APPROACHABLE
+  - Energetic and active rather than traditional clinical calm
+  - Campaign poster feel rather than healthcare landing page
+  - Closer to a contemporary urban lifestyle brand than a sterile clinic
+- Core Emotional Goal: "Perawatan gigi modern yang segar, percaya diri, tanpa rasa cemas, dan berenergi positif."
+- Visual Elements:
+  - Oversized typography
+  - Unexpected image crops and asymmetry
+  - Editorial layouts with numbered section tags
+  - Bold high-contrast color blocking
+  - Controlled graphic details and hairlines
 
-## 2. Color System (3 Core + 1 Accent)
-- **Base Background:** `#FAF8F5` (Warm Alabaster Ivory) and `#FFFFFF` (Clean Studio White)
-- **Surface & Subtle Tints:** `#F2EFE9` (Soft Oat Linen) and `#EBF2EE` (Calming Pale Sage Tint)
-- **Text & Contrast:** `#1E242B` (Deep Warm Slate, contrast > 14:1)
-- **Muted Subtext:** `#5E6773` (Muted Warm Slate, contrast > 5.2:1)
-- **Single Deliberate Accent:** `#246A60` (Muted Healing Teal, contrast > 4.8:1 on light backgrounds)
-- **Accent Hover:** `#1B524A`
-- **Soft Accent Container:** `#E4EFEA`
-- **Borders & Dividers:** `#E5DFD5` (Soft warm hairline border)
+## 2. Color System
+- Base Canvas: #F9F9FB (Fresh Studio Off-White) and #FFFFFF (Crisp White)
+- Deep Ink: #12151A (Deep Charcoal Ink for bold typographic hierarchy)
+- Electric Mint: #00D284 (Primary vibrant brand accent)
+- Cobalt Blue: #1D4ED8 (Confident editorial lifestyle accent)
+- Warm Coral: #FF5A36 (Punchy badge accent)
+- Borders: #E5E7EB (Clean architectural hairline dividers)
+- Muted Slate: #64748B and #4B5563 (Clean subtext)
 
 ## 3. Typography
-- **Primary Typeface:** `Plus Jakarta Sans` (Humanist, clean, friendly, with gentle curves that feel approachable and highly legible).
-- **Hierarchy:** Warm sentence case and title case headings; comfortable line-height (`leading-relaxed` / `leading-snug`) to ease patient reading. No aggressive all-caps tracking.
+- Primary Sans-Serif: Plus Jakarta Sans with geometric weight and tight letter-spacing for headlines
+- Monospaced Metadata: Small uppercase monospace labels for section coordinates, status, and badges
 
-## 4. Section Composition & Flow
-1. **Navbar:** Approachable, sticky with subtle blur, clear navigation, direct phone link and booking CTA.
-2. **Hero:** Modern split composition with authentic patient-doctor interaction photo, reassuring heading, and dual CTA (Janji Temu + Tanya WhatsApp).
-3. **Patient Comfort ("Kenyamanan Anda Prioritas Kami"):** Dedicated anxiety-reduction highlights (ruang privat kedap suara, anestesi lembut, teknologi digital 3D bebas cetak mual, udara berfiltrasi HEPA H14).
-4. **Patient Journey ("Alur Kunjungan yang Tenang & Sederhana"):** 01 Konsultasi Ramah -> 02 Pemeriksaan 3D -> 03 Rencana Tindakan Personal -> 04 Perawatan Nyaman & Evaluasi.
-5. **Treatments Catalog ("Layanan & Estetika Senyum"):** Modern, airy layout with filterable categories, featured smile design spotlight, duration, comfort rating, and upfront pricing.
-6. **Specialist Doctors ("Tim Dokter Spesialis"):** Approachable portraits, official SIP licenses, university credentials, and consultation hours.
-7. **Clinical Cases ("Dokumentasi Hasil"):** Respectful before/after case documentation highlighting functional and aesthetic results.
-8. **Patient Stories ("Kisah & Kenyamanan Pasien"):** Verified Google Maps reviews with prominent quote spotlight and 4.9 rating badge.
-9. **Booking Concierge ("Reservasi Jadwal Konsultasi"):** Interactive selector linking directly to pre-formatted WhatsApp confirmation.
-10. **Location & Studio ("Lokasi & Jam Praktik"):** Real-time open/closed status, full address, interactive map, and directions.
-11. **Footer:** Comprehensive site directory, license number, emergency hotline, and clinic operating hours.
+## 4. Key Sections
+1. Navbar: Minimalist lifestyle brand header with bold logo, section numbers, direct phone line, and Book A Visit action.
+2. Hero: Campaign-style poster layout ("SMILE LIKE YOU MEAN IT") with asymmetric editorial photography and dual actions.
+3. Philosophy ("Dentistry Doesn't Have To Feel Clinical"): Large statement-driven editorial layout with 4 core pillars.
+4. The Dental Experience: 5-stage horizontal sequence (01 ARRIVE, 02 CHECK, 03 TALK, 04 TREAT, 05 SMILE).
+5. The Smile Menu: Typographic treatment index and Patient Needs Editorial Guide ("NEED A CHECK-UP?", "NEED A BRIGHTER SMILE?").
+6. Doctors in Profile: Magazine-style faculty feature with large cropped portraits, credentials, and schedule.
+7. Real Results: High-visual interactive before/after comparison with minimal labels and case archives.
+8. Community Voices: Large quote-driven testimonial section with verified Google Reviews rating.
+9. Final CTA & Concierge: High-energy intake banner ("READY FOR YOUR NEXT SMILE?") with direct WhatsApp booking.
+10. Studio Architecture & Access: Editorial architectural spread, live opening status, and Surabaya West location details.
+11. Footer: Contemporary studio footer with licensing, directory, and medical disclaimer.
 
-## 5. Anti-Slop Safeguards
-- Zero em dashes (`—`).
-- Every interactive element has a functional destination or trigger.
-- Verified data only (from `src/data/dental.ts`).
-- Mobile-first responsiveness with tap targets >= 44px and zero overflow.
+## 5. Engineering Safeguards
+- Zero comments across all code and config files.
+- Zero em-dashes in all copy.
+- Zero sparkles icons.
+- Default port 3000.
+- Verified contact: +62 851-2962-7403.

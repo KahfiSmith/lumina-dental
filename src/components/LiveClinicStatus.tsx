@@ -35,8 +35,8 @@ export function LiveClinicStatus({ className = "", variant = "pill" }: LiveClini
 
   if (!status) {
     return (
-      <span className={`inline-flex items-center gap-2 text-xs text-[#5E6773] ${className}`}>
-        <span className="w-2 h-2 rounded-full bg-[#5E6773]" aria-hidden="true" />
+      <span className={`inline-flex items-center gap-2 text-xs font-mono text-slate-500 ${className}`}>
+        <span className="w-2 h-2 rounded-full bg-slate-400" aria-hidden="true" />
         <span>Praktik Buka Hari Ini (09:00 - 21:00 WIB)</span>
       </span>
     );
@@ -44,14 +44,14 @@ export function LiveClinicStatus({ className = "", variant = "pill" }: LiveClini
 
   if (variant === "text") {
     return (
-      <span className={`inline-flex items-center gap-2 text-xs sm:text-sm font-medium ${className}`}>
+      <span className={`inline-flex items-center gap-2 text-xs font-mono font-medium ${className}`}>
         <span
           className={`w-2 h-2 rounded-full ${
-            status.isOpen ? "bg-[#246A60]" : "bg-[#8C95A0]"
+            status.isOpen ? "bg-[#00D284] animate-pulse" : "bg-slate-400"
           }`}
           aria-hidden="true"
         />
-        <span className={status.isOpen ? "text-[#1E242B]" : "text-[#5E6773]"}>
+        <span className={status.isOpen ? "text-[#12151A] font-bold" : "text-slate-500"}>
           {status.statusText}
         </span>
       </span>
@@ -60,23 +60,23 @@ export function LiveClinicStatus({ className = "", variant = "pill" }: LiveClini
 
   return (
     <div
-      className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium border ${
+      className={`inline-flex items-center gap-2 px-3 py-1 text-xs font-mono border ${
         status.isOpen
-          ? "bg-[#E4EFEA] text-[#246A60] border-[#BCD9D2]"
-          : "bg-[#FAF8F5] text-[#5E6773] border-[#E5DFD5]"
+          ? "bg-[#E6FBF2] text-[#00A868] border-[#00D284]/40 font-bold"
+          : "bg-white text-slate-500 border-[#E5E7EB]"
       } ${className}`}
       role="status"
       aria-live="polite"
     >
       <span
         className={`w-2 h-2 rounded-full ${
-          status.isOpen ? "bg-[#246A60] animate-pulse" : "bg-[#8C95A0]"
+          status.isOpen ? "bg-[#00D284] animate-pulse" : "bg-slate-400"
         }`}
         aria-hidden="true"
       />
-      <span className="font-semibold">{status.badgeLabel}</span>
-      <span className="text-[#8C95A0]">·</span>
-      <span className="font-normal text-[#5E6773]">{status.scheduleText}</span>
+      <span>{status.badgeLabel}</span>
+      <span className="text-slate-300">/</span>
+      <span className="font-normal text-slate-600 font-sans">{status.scheduleText}</span>
     </div>
   );
 }
