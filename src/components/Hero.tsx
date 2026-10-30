@@ -3,39 +3,12 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { ArrowRight, ArrowUpRight, Star, ShieldCheck, MapPin, Scan, Clock } from "lucide-react";
-import { motion, useScroll, useTransform, useReducedMotion, useMotionValue, useSpring } from "motion/react";
+import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
 import { editorialEase, buttonHoverVariants } from "@/motion/motionTokens";
 
 export function Hero() {
   const containerRef = useRef<HTMLElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
-
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const rotateX = useSpring(useTransform(mouseY, [-150, 150], [6, -6]), {
-    stiffness: 250,
-    damping: 25,
-  });
-  const rotateY = useSpring(useTransform(mouseX, [-150, 150], [-6, 6]), {
-    stiffness: 250,
-    damping: 25,
-  });
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (shouldReduceMotion || !cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    mouseX.set(e.clientX - centerX);
-    mouseY.set(e.clientY - centerY);
-  };
-
-  const handleMouseLeave = () => {
-    mouseX.set(0);
-    mouseY.set(0);
-  };
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -239,15 +212,6 @@ export function Hero() {
 
           <div className="lg:col-span-5 relative mt-4 lg:mt-0">
             <motion.div
-              ref={cardRef}
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
-              style={{
-                perspective: 1000,
-                rotateX: shouldReduceMotion ? 0 : rotateX,
-                rotateY: shouldReduceMotion ? 0 : rotateY,
-                transformStyle: "preserve-3d",
-              }}
               initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.95, y: 30 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.3, ease: editorialEase }}

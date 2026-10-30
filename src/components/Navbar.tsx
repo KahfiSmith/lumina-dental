@@ -10,7 +10,6 @@ import { editorialEase, snappySpring } from "@/motion/motionTokens";
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [hoveredNav, setHoveredNav] = useState<string | null>(null);
 
   const shouldReduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll();
@@ -102,30 +101,16 @@ export function Navbar() {
               </div>
             </Link>
 
-            <nav
-              className="hidden lg:flex items-center gap-1 bg-[#F1F3F7] p-1 rounded-full border border-[#E5E7EB] relative"
-              onMouseLeave={() => setHoveredNav(null)}
-            >
-              {navLinks.map((link) => {
-                const isHovered = hoveredNav === link.href;
-                return (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    onMouseEnter={() => setHoveredNav(link.href)}
-                    className="relative px-3.5 py-1.5 rounded-full text-xs font-semibold text-[#4B5563] hover:text-[#12151A] transition-colors tracking-wide z-10"
-                  >
-                    {isHovered && (
-                      <motion.span
-                        layoutId="navHoverPill"
-                        className="absolute inset-0 bg-white rounded-full shadow-xs -z-10"
-                        transition={{ type: "spring", stiffness: 450, damping: 30 }}
-                      />
-                    )}
-                    {link.label}
-                  </a>
-                );
-              })}
+            <nav className="hidden lg:flex items-center gap-1 bg-[#F1F3F7] p-1 rounded-full border border-[#E5E7EB]">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="px-3.5 py-1.5 rounded-full text-xs font-semibold text-[#4B5563] hover:text-[#12151A] hover:bg-white transition-colors tracking-wide"
+                >
+                  {link.label}
+                </a>
+              ))}
             </nav>
 
             <div className="hidden sm:flex items-center gap-2 shrink-0">

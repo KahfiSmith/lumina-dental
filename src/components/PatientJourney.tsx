@@ -153,8 +153,6 @@ export function PatientJourney() {
               transition={{ duration: 0.25, ease: editorialEase }}
               className="p-6 bg-white border border-[#E5E7EB] flex flex-col justify-between hover:border-[#1D4ED8] transition-colors group relative shadow-xs hover:shadow-md cursor-default"
             >
-              <div className="absolute top-0 left-0 right-0 h-1 bg-transparent group-hover:bg-[#1D4ED8] transition-colors" />
-
               <div>
                 <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-6 font-mono">
                   <span className="text-xs font-bold text-[#00D284] group-hover:text-[#1D4ED8] transition-colors">

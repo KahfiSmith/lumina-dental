@@ -67,7 +67,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id" className={`${jakarta.variable} scroll-smooth`}>
-      <body className="min-h-screen bg-[#F9F9FB] text-[#12151A] antialiased font-sans selection:bg-[#00D284] selection:text-[#12151A]">
+      <body className="min-h-screen bg-[#F9F9FB] text-[#12151A] antialiased font-sans">
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2.5 focus:bg-[#12151A] focus:text-white focus:rounded-none text-xs font-mono uppercase"
