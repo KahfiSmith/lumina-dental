@@ -4,7 +4,7 @@ import { useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import { clinicData } from "@/data/dental";
 import { SlidersHorizontal, ArrowUpRight } from "lucide-react";
-import { motion, useReducedMotion } from "motion/react";
+import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
 import { KineticHeadline } from "@/components/motion/KineticHeadline";
 import { editorialEase, snappySpring } from "@/motion/motionTokens";
 
@@ -12,8 +12,16 @@ export function Cases() {
   const { cases, contact } = clinicData;
   const [sliderPos, setSliderPos] = useState<number>(50);
   const [isDragging, setIsDragging] = useState<boolean>(false);
+  const containerRef = useRef<HTMLElement>(null);
   const comparisonRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const watermarkX = useTransform(scrollYProgress, [0, 1], ["-12%", "12%"]);
 
   const featuredCase = cases[1];
   const sideCases = cases.filter((c) => c.id !== featuredCase.id);
@@ -42,10 +50,22 @@ export function Cases() {
   };
 
   return (
-    <section id="hasil" className="scroll-mt-24 py-20 sm:py-28 bg-white text-[#12151A] border-b border-[#E5E7EB]">
+    <section
+      ref={containerRef}
+      id="hasil"
+      className="scroll-mt-24 py-20 sm:py-28 bg-white text-[#12151A] border-b border-[#E5E7EB] relative overflow-hidden"
+    >
       <span id="kasus" className="sr-only" aria-hidden="true" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+      <motion.div
+        style={{ x: shouldReduceMotion ? 0 : watermarkX }}
+        className="absolute -top-10 left-0 text-[110px] sm:text-[180px] font-black uppercase font-sans text-slate-100 whitespace-nowrap pointer-events-none select-none tracking-tighter leading-none -z-0"
+        aria-hidden="true"
+      >
+        CLINICAL EVIDENCE ARCHIVE
+      </motion.div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 relative z-10">
         <div className="border-b border-[#E5E7EB] pb-10 mb-14">
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <div>
@@ -86,7 +106,7 @@ export function Cases() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.7, ease: editorialEase }}
-          className="bg-[#F9F9FB] border border-[#E5E7EB] p-6 sm:p-10 mb-16 shadow-2xs"
+          className="bg-[#F9F9FB] border border-[#E5E7EB] p-6 sm:p-10 mb-16 shadow-xs"
         >
           <div className="flex flex-wrap items-center justify-between pb-4 mb-6 border-b border-[#E5E7EB] font-mono text-xs text-slate-500">
             <span className="font-bold text-[#1D4ED8] uppercase">
@@ -130,9 +150,17 @@ export function Cases() {
                   style={{ left: `${sliderPos}%` }}
                 >
                   <motion.div
-                    animate={{ scale: isDragging ? 1.15 : 1 }}
-                    transition={snappySpring}
-                    className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 rounded-full bg-[#12151A] text-white flex items-center justify-center text-xs font-mono border-2 border-white shadow-lg"
+                    animate={
+                      isDragging
+                        ? { scale: 1.25 }
+                        : { scale: [1, 1.1, 1] }
+                    }
+                    transition={
+                      isDragging
+                        ? snappySpring
+                        : { duration: 2.4, repeat: Infinity, ease: "easeInOut" }
+                    }
+                    className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 rounded-full bg-[#12151A] text-white flex items-center justify-center text-xs font-mono border-2 border-white shadow-xl"
                   >
                     <SlidersHorizontal className="w-4 h-4 text-[#00D284]" />
                   </motion.div>
@@ -179,41 +207,40 @@ export function Cases() {
                     <span className="text-[9px] uppercase text-slate-400 block font-bold">
                       PROSEDUR TINDAKAN:
                     </span>
-                    <span className="text-slate-800 font-sans text-xs">
+                    <span className="text-[#12151A] font-bold">
                       {featuredCase.treatmentType}
                     </span>
                   </div>
 
-                  <div className="pt-2 border-t border-[#E5E7EB]">
-                    <span className="text-[9px] uppercase text-slate-400 block font-bold">
-                      HASIL KLINIS:
-                    </span>
-                    <span className="text-slate-800 font-sans text-xs">
-                      {featuredCase.resultHighlight}
-                    </span>
-                  </div>
-
-                  <div className="pt-2 border-t border-[#E5E7EB]">
+                  <div>
                     <span className="text-[9px] uppercase text-slate-400 block font-bold">
                       DOKTER PENANGGUNG JAWAB:
                     </span>
-                    <span className="text-[#1D4ED8] font-sans text-xs font-semibold">
+                    <span className="text-[#12151A]">
                       {featuredCase.doctorInCharge}
+                    </span>
+                  </div>
+
+                  <div>
+                    <span className="text-[9px] uppercase text-slate-400 block font-bold">
+                      HASIL OBSERVASI KLINIS:
+                    </span>
+                    <span className="text-[#00A868] font-bold">
+                      {featuredCase.resultHighlight}
                     </span>
                   </div>
                 </div>
               </div>
 
               <motion.a
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                transition={snappySpring}
+                whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
+                whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
                 href={`https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(
-                  `Halo Lumina Dental, saya ingin konsultasi mengenai prosedur ${featuredCase.treatmentType}.`
+                  `Halo Lumina Dental, saya tertarik dengan hasil kasus ${featuredCase.title} (${featuredCase.treatmentType}). Mau konsultasi awal.`
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 py-3 bg-[#12151A] hover:bg-[#1D4ED8] text-white text-xs font-mono uppercase tracking-wider transition-colors shadow-2xs group"
+                className="inline-flex items-center justify-center gap-2 w-full py-3.5 bg-[#12151A] hover:bg-[#1D4ED8] text-white text-xs font-bold uppercase tracking-widest transition-colors font-mono shadow-sm group"
               >
                 <span>Konsultasikan Kasus Serupa</span>
                 <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -222,39 +249,50 @@ export function Cases() {
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="font-mono text-xs text-slate-400 uppercase tracking-widest mb-6 font-bold">
+          DOKUMENTASI KASUS KLINIS LAINNYA
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {sideCases.map((c, idx) => (
             <motion.div
               key={c.id}
-              initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.6, delay: idx * 0.1, ease: editorialEase }}
-              whileHover={shouldReduceMotion ? undefined : { y: -4, borderColor: "#1D4ED8" }}
-              className="p-6 bg-[#F9F9FB] border border-[#E5E7EB] flex flex-col justify-between hover:border-[#1D4ED8] transition-colors cursor-default shadow-2xs hover:shadow-sm"
+              whileHover={shouldReduceMotion ? undefined : { y: -8 }}
+              className="p-6 bg-[#F9F9FB] border border-[#E5E7EB] flex flex-col justify-between hover:border-[#1D4ED8] transition-all cursor-default shadow-2xs hover:shadow-lg group"
             >
               <div>
-                <div className="flex items-center justify-between font-mono text-xs text-slate-400 mb-2">
-                  <span className="text-[#00A868] font-bold">CASE RECORD 0{idx + 2}</span>
-                  <span>{c.durationText}</span>
+                <div className="relative aspect-4/3 w-full overflow-hidden bg-slate-200 border border-[#E5E7EB] mb-4">
+                  <Image
+                    src={c.image}
+                    alt={`Dokumentasi kasus ${c.title} Lumina Dental`}
+                    fill
+                    className="object-cover group-hover:scale-108 transition-transform duration-700"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                  <div className="absolute top-2 left-2 bg-[#12151A]/90 text-white font-mono text-[9px] px-2 py-0.5 uppercase tracking-wider backdrop-blur-xs">
+                    {c.durationText}
+                  </div>
                 </div>
 
-                <h4 className="text-lg font-bold uppercase tracking-tight text-[#12151A] mb-2 font-sans">
+                <div className="text-[10px] font-mono text-[#1D4ED8] font-bold uppercase mb-1">
+                  {c.treatmentType}
+                </div>
+
+                <h4 className="text-base font-bold uppercase tracking-tight text-[#12151A] mb-2 font-sans group-hover:text-[#1D4ED8] transition-colors">
                   {c.title}
                 </h4>
 
-                <p className="text-xs text-[#4B5563] leading-relaxed mb-4 font-light">
+                <p className="text-xs text-[#4B5563] leading-relaxed font-light mb-4 font-sans">
                   {c.description}
                 </p>
-
-                <div className="p-3 bg-white border border-[#E5E7EB] font-mono text-xs space-y-1 mb-4">
-                  <div className="text-[10px] text-slate-400">TINDAKAN: {c.treatmentType}</div>
-                  <div className="text-[10px] text-slate-400">DOKTER: {c.doctorInCharge}</div>
-                </div>
               </div>
 
-              <div className="pt-4 border-t border-[#E5E7EB] flex items-center justify-between text-xs font-mono">
-                <span className="text-slate-500">{c.resultHighlight}</span>
+              <div className="pt-4 border-t border-[#E5E7EB] text-[11px] font-mono flex items-center justify-between text-slate-500">
+                <span>{c.doctorInCharge}</span>
                 <span className="text-[#00A868] font-bold">VERIFIED</span>
               </div>
             </motion.div>

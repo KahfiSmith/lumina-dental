@@ -1,23 +1,44 @@
 "use client";
 
+import { useRef } from "react";
 import Image from "next/image";
 import { clinicData } from "@/data/dental";
 import { LiveClinicStatus } from "@/components/LiveClinicStatus";
 import { MapPin, Clock, Phone, ArrowUpRight, ShieldCheck, Car, Coffee, Music } from "lucide-react";
-import { motion, useReducedMotion } from "motion/react";
+import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
 import { KineticHeadline } from "@/components/motion/KineticHeadline";
 import { editorialEase, snappySpring } from "@/motion/motionTokens";
 
 export function LocationHours() {
   const { contact, schedule } = clinicData;
+  const containerRef = useRef<HTMLElement>(null);
   const shouldReduceMotion = useReducedMotion();
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const watermarkX = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
 
   const mapEmbedUrl =
     "https://www.openstreetmap.org/export/embed.html?bbox=112.6950%2C-7.3050%2C112.7350%2C-7.2750&layer=mapnik&marker=-7.2930%2C112.7150";
 
   return (
-    <section id="lokasi" className="scroll-mt-24 py-20 sm:py-28 bg-white text-[#12151A] border-b border-[#E5E7EB]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+    <section
+      ref={containerRef}
+      id="lokasi"
+      className="scroll-mt-24 py-20 sm:py-28 bg-white text-[#12151A] border-b border-[#E5E7EB] relative overflow-hidden"
+    >
+      <motion.div
+        style={{ x: shouldReduceMotion ? 0 : watermarkX }}
+        className="absolute -top-10 left-0 text-[110px] sm:text-[180px] font-black uppercase font-sans text-slate-100 whitespace-nowrap pointer-events-none select-none tracking-tighter leading-none -z-0"
+        aria-hidden="true"
+      >
+        MAYJEN SUNGKONO 88 SURABAYA
+      </motion.div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 relative z-10">
         <div className="border-b border-[#E5E7EB] pb-10 mb-16">
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <div>
@@ -62,7 +83,7 @@ export function LocationHours() {
             className="lg:col-span-8 relative h-[380px] sm:h-[460px] bg-[#12151A] overflow-hidden border border-[#E5E7EB] group"
           >
             <motion.div
-              whileHover={shouldReduceMotion ? undefined : { scale: 1.04 }}
+              whileHover={shouldReduceMotion ? undefined : { scale: 1.05 }}
               transition={{ duration: 0.7, ease: editorialEase }}
               className="relative w-full h-full"
             >
@@ -180,39 +201,40 @@ export function LocationHours() {
                 <LiveClinicStatus variant="pill" />
               </div>
 
-              <div className="space-y-2 text-xs font-mono">
-                {schedule.map((h, idx) => (
-                  <div key={idx} className="flex items-center justify-between pb-1.5 border-b border-[#E5E7EB]">
-                    <span className="text-slate-500 uppercase">{h.days}</span>
-                    <span className="font-bold text-[#12151A]">{h.time}</span>
+              <div className="space-y-2.5 font-mono text-xs text-[#12151A]">
+                {schedule.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-center justify-between py-1.5 border-b border-slate-200/80 last:border-0"
+                  >
+                    <span className="text-slate-500">{item.days}</span>
+                    <span className="font-bold">{item.time}</span>
                   </div>
                 ))}
               </div>
             </motion.div>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-col sm:flex-row gap-3">
               <motion.a
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                transition={snappySpring}
+                whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
+                whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
                 href={contact.googleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-[#12151A] hover:bg-[#1D4ED8] text-white text-xs font-mono uppercase tracking-wider transition-colors shadow-2xs group"
+                className="flex-1 inline-flex items-center justify-center gap-2 p-3.5 bg-[#12151A] hover:bg-[#1D4ED8] text-white font-mono text-xs font-bold uppercase tracking-wider transition-colors shadow-xs group"
               >
                 <span>Buka Google Maps</span>
                 <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </motion.a>
 
               <motion.a
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                transition={snappySpring}
+                whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
+                whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
                 href={`tel:${contact.emergencyPhone}`}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-white border border-[#E5E7EB] hover:border-[#12151A] text-[#12151A] text-xs font-mono uppercase tracking-wider transition-colors shadow-2xs"
+                className="inline-flex items-center justify-center gap-2 p-3.5 bg-white hover:bg-[#F1F3F7] border border-[#E5E7EB] text-[#12151A] font-mono text-xs font-bold uppercase tracking-wider transition-colors group"
               >
-                <Phone className="w-3.5 h-3.5 text-[#00D284]" />
-                <span>Telepon: {contact.formattedEmergencyPhone}</span>
+                <Phone className="w-3.5 h-3.5 text-[#00A868]" />
+                <span>Telepon Front Desk</span>
               </motion.a>
             </div>
           </div>
@@ -220,21 +242,19 @@ export function LocationHours() {
           <motion.div
             initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.98 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7, delay: 0.2, ease: editorialEase }}
-            className="lg:col-span-7 border border-[#E5E7EB] overflow-hidden relative shadow-sm"
+            className="lg:col-span-7 h-[390px] w-full border border-[#E5E7EB] relative bg-slate-100 overflow-hidden"
           >
-            <div className="h-80 sm:h-96 w-full bg-[#12151A]">
-              <iframe
-                title="Peta Lokasi Lumina Dental Studio Surabaya"
-                src={mapEmbedUrl}
-                className="w-full h-full border-0 filter grayscale-[40%] contrast-[1.1]"
-                loading="lazy"
-              />
-            </div>
-            <div className="p-4 bg-[#F9F9FB] border-t border-[#E5E7EB] font-mono text-xs flex items-center justify-between text-slate-500">
-              <span>SURABAYA DUKUH PAKIS ACCESS</span>
-              <span>PARKING & VALET: READY</span>
+            <iframe
+              title="Peta Lokasi Lumina Dental Studio Surabaya"
+              src={mapEmbedUrl}
+              className="w-full h-full border-0 filter grayscale-[20%] contrast-[1.05]"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+            <div className="absolute bottom-3 left-3 bg-[#12151A]/90 text-white font-mono text-[10px] px-2.5 py-1 backdrop-blur-xs">
+              GPS: -7.2930, 112.7150 : MAYJEN SUNGKONO
             </div>
           </motion.div>
         </div>

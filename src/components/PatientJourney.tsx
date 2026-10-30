@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
 import { useGSAP } from "@gsap/react";
 import { gsap, registerGSAP } from "@/motion/gsapSetup";
 import { KineticHeadline } from "@/components/motion/KineticHeadline";
@@ -12,6 +12,13 @@ export function PatientJourney() {
   const cardsRef = useRef<HTMLDivElement>(null);
   const lineProgressRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const watermarkX = useTransform(scrollYProgress, [0, 1], ["5%", "-15%"]);
 
   const steps = [
     {
@@ -100,7 +107,15 @@ export function PatientJourney() {
       id="alur"
       className="scroll-mt-24 py-20 sm:py-28 bg-[#F1F3F7] text-[#12151A] border-b border-[#E5E7EB] relative overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+      <motion.div
+        style={{ x: shouldReduceMotion ? 0 : watermarkX }}
+        className="absolute -top-10 left-0 text-[110px] sm:text-[180px] font-black uppercase font-sans text-slate-200/50 whitespace-nowrap pointer-events-none select-none tracking-tighter leading-none -z-0"
+        aria-hidden="true"
+      >
+        JOURNEY 01 TO 05 PROTOCOL
+      </motion.div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 relative z-10">
         <div className="border-b border-[#E5E7EB] pb-10 mb-14">
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <div>
@@ -140,7 +155,7 @@ export function PatientJourney() {
           <div className="h-[2px] w-full bg-[#E5E7EB]" />
           <div
             ref={lineProgressRef}
-            className="absolute top-0 left-0 h-[2px] w-full bg-gradient-to-r from-[#00D284] via-[#1D4ED8] to-[#00D284] origin-left"
+            className="absolute top-0 left-0 h-[2px] w-full bg-gradient-to-r from-[#00D284] via-[#1D4ED8] to-[#00D284] origin-left shadow-[0_0_12px_rgba(0,210,132,0.6)]"
             style={{ transform: "scaleX(0)" }}
           />
         </div>
@@ -149,10 +164,12 @@ export function PatientJourney() {
           {steps.map((item, idx) => (
             <motion.div
               key={item.num}
-              whileHover={shouldReduceMotion ? undefined : { y: -6, borderColor: "#1D4ED8" }}
+              whileHover={shouldReduceMotion ? undefined : { y: -8, borderColor: "#1D4ED8" }}
               transition={{ duration: 0.25, ease: editorialEase }}
-              className="p-6 bg-white border border-[#E5E7EB] flex flex-col justify-between hover:border-[#1D4ED8] transition-colors group relative shadow-xs hover:shadow-md cursor-default"
+              className="p-6 bg-white border border-[#E5E7EB] flex flex-col justify-between hover:border-[#1D4ED8] transition-all group relative shadow-xs hover:shadow-xl cursor-default overflow-hidden"
             >
+              <div className="absolute top-0 left-0 right-0 h-1 bg-transparent group-hover:bg-[#1D4ED8] transition-colors" />
+
               <div>
                 <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-6 font-mono">
                   <span className="text-xs font-bold text-[#00D284] group-hover:text-[#1D4ED8] transition-colors">

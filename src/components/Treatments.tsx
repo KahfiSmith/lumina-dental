@@ -1,15 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { clinicData } from "@/data/dental";
-import { ArrowUpRight } from "lucide-react";
-import { motion, AnimatePresence, useReducedMotion } from "motion/react";
+import { ArrowUpRight, Check } from "lucide-react";
+import { motion, AnimatePresence, useScroll, useTransform, useReducedMotion } from "motion/react";
 import { KineticHeadline } from "@/components/motion/KineticHeadline";
 import { editorialEase, snappySpring } from "@/motion/motionTokens";
 
 export function Treatments() {
   const [activeCategory, setActiveCategory] = useState<string>("all");
+  const containerRef = useRef<HTMLElement>(null);
   const shouldReduceMotion = useReducedMotion();
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const watermarkX = useTransform(scrollYProgress, [0, 1], ["5%", "-15%"]);
 
   const categories = [
     { id: "all", label: "00 ALL SERVICES" },
@@ -52,8 +60,20 @@ export function Treatments() {
   ];
 
   return (
-    <section id="layanan" className="scroll-mt-24 py-20 sm:py-28 bg-white text-[#12151A] border-b border-[#E5E7EB]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+    <section
+      ref={containerRef}
+      id="layanan"
+      className="scroll-mt-24 py-20 sm:py-28 bg-white text-[#12151A] border-b border-[#E5E7EB] relative overflow-hidden"
+    >
+      <motion.div
+        style={{ x: shouldReduceMotion ? 0 : watermarkX }}
+        className="absolute -top-10 left-0 text-[110px] sm:text-[180px] font-black uppercase font-sans text-slate-100 whitespace-nowrap pointer-events-none select-none tracking-tighter leading-none -z-0"
+        aria-hidden="true"
+      >
+        TREATMENT CATALOGUE INDEX
+      </motion.div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 relative z-10">
         <div className="border-b border-[#E5E7EB] pb-12 mb-16">
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <div>
@@ -94,9 +114,10 @@ export function Treatments() {
             initial={shouldReduceMotion ? false : { opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="font-mono text-xs text-slate-400 uppercase tracking-widest mb-6 font-bold"
+            className="font-mono text-xs text-slate-400 uppercase tracking-widest mb-6 font-bold flex items-center justify-between"
           >
-            PATIENT EDITORIAL GUIDE : WHAT DO YOU NEED TODAY?
+            <span>PATIENT EDITORIAL GUIDE : WHAT DO YOU NEED TODAY?</span>
+            <span className="hidden sm:inline text-[#00A868]">PANDUAN KLINIS 01 - 04</span>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -107,9 +128,10 @@ export function Treatments() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.5, delay: idx * 0.08, ease: editorialEase }}
-                whileHover={shouldReduceMotion ? undefined : { y: -5, borderColor: "#1D4ED8" }}
-                className="p-6 bg-[#F9F9FB] border border-[#E5E7EB] flex flex-col justify-between hover:border-[#1D4ED8] transition-colors group cursor-default shadow-2xs hover:shadow-sm"
+                whileHover={shouldReduceMotion ? undefined : { y: -6, borderColor: "#1D4ED8" }}
+                className="p-6 bg-[#F9F9FB] border border-[#E5E7EB] flex flex-col justify-between hover:border-[#1D4ED8] transition-all group cursor-default shadow-2xs hover:shadow-lg relative overflow-hidden"
               >
+                <div className="absolute top-0 left-0 right-0 h-1 bg-[#1D4ED8] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                 <div>
                   <span className="font-mono text-xs text-[#1D4ED8] font-bold block mb-3 group-hover:tracking-wider transition-all">
                     NEED 0{idx + 1}
@@ -122,7 +144,7 @@ export function Treatments() {
                   </p>
                 </div>
                 <div className="pt-4 border-t border-[#E5E7EB] flex items-center justify-between">
-                  <span className="text-[11px] font-mono font-bold text-[#12151A]">
+                  <span className="text-[11px] font-mono font-bold text-[#12151A] group-hover:text-[#1D4ED8] transition-colors">
                     {need.treatment}
                   </span>
                   <ArrowUpRight className="w-3.5 h-3.5 text-[#00A868] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
@@ -169,7 +191,7 @@ export function Treatments() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.35, delay: idx * 0.04 }}
-                className="py-8 lg:py-10 hover:bg-[#F9F9FB] transition-colors group px-2 sm:px-4"
+                className="py-8 lg:py-10 hover:bg-[#F9F9FB] transition-all group px-2 sm:px-4 relative"
               >
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                   <div className="lg:col-span-1 font-mono text-xs font-bold text-slate-400 group-hover:text-[#00A868] transition-colors">
@@ -191,13 +213,14 @@ export function Treatments() {
                       {item.description}
                     </p>
 
-                    <div className="text-[11px] font-mono text-[#00A868] font-semibold">
-                      Highlight: {item.tag}
+                    <div className="inline-flex items-center gap-1.5 text-[11px] font-mono text-[#00A868] font-semibold bg-[#E6FBF2] px-2 py-0.5 border border-[#00D284]/20">
+                      <Check className="w-3 h-3 text-[#00A868]" />
+                      <span>{item.tag}</span>
                     </div>
                   </div>
 
                   <div className="lg:col-span-4 space-y-2 font-mono text-xs">
-                    <div className="p-3 bg-[#F9F9FB] border border-[#E5E7EB] group-hover:bg-white transition-colors">
+                    <div className="p-3 bg-[#F9F9FB] border border-[#E5E7EB] group-hover:bg-white group-hover:border-[#1D4ED8]/30 transition-all">
                       <span className="text-[9px] uppercase text-slate-400 block mb-1">
                         KETERANGAN KLINIS:
                       </span>
@@ -207,11 +230,11 @@ export function Treatments() {
                     </div>
 
                     <div className="grid grid-cols-2 gap-2 text-[11px]">
-                      <div className="p-2 border border-[#E5E7EB] bg-white">
+                      <div className="p-2 border border-[#E5E7EB] bg-white group-hover:border-[#1D4ED8]/30 transition-colors">
                         <span className="text-[9px] text-slate-400 block uppercase">ESTIMASI WAKTU</span>
                         <span className="text-[#12151A]">{item.duration}</span>
                       </div>
-                      <div className="p-2 border border-[#E5E7EB] bg-white">
+                      <div className="p-2 border border-[#E5E7EB] bg-white group-hover:border-[#1D4ED8]/30 transition-colors">
                         <span className="text-[9px] text-slate-400 block uppercase">LEVEL NYERI</span>
                         <span className="text-[#00A868] font-bold">{item.painScale || "Nyaman"}</span>
                       </div>
@@ -232,8 +255,8 @@ export function Treatments() {
                     </div>
 
                     <motion.a
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.97 }}
+                      whileHover={{ scale: 1.04 }}
+                      whileTap={{ scale: 0.96 }}
                       transition={snappySpring}
                       href={`#booking`}
                       className="inline-flex items-center gap-2 px-4 py-2 bg-white hover:bg-[#12151A] text-[#12151A] hover:text-white border border-[#E5E7EB] hover:border-[#12151A] text-xs font-mono uppercase tracking-wider transition-colors shadow-2xs group/btn"

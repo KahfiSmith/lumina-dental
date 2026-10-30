@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ArrowRight, ArrowUpRight, Star, ShieldCheck, MapPin, Scan, Clock } from "lucide-react";
 import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
 import { editorialEase, buttonHoverVariants } from "@/motion/motionTokens";
+import { Counter } from "@/components/motion/Counter";
 
 export function Hero() {
   const containerRef = useRef<HTMLElement>(null);
@@ -15,9 +16,10 @@ export function Hero() {
     offset: ["start start", "end start"],
   });
 
-  const parallaxImageY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
-  const parallaxFloatingCard = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
-  const parallaxClockBadge = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
+  const watermarkX = useTransform(scrollYProgress, [0, 1], ["0%", "-14%"]);
+  const parallaxImageY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+  const parallaxFloatingCard = useTransform(scrollYProgress, [0, 1], ["0%", "-25%"]);
+  const parallaxClockBadge = useTransform(scrollYProgress, [0, 1], ["0%", "28%"]);
 
   const line1 = "Smile";
   const line2 = "Like You";
@@ -30,7 +32,15 @@ export function Hero() {
     >
       <div className="absolute inset-0 bg-[radial-gradient(#12151A_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.03] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 relative">
+      <motion.div
+        style={{ x: shouldReduceMotion ? 0 : watermarkX }}
+        className="absolute top-12 left-4 text-[100px] sm:text-[170px] lg:text-[220px] font-black uppercase font-sans text-slate-200/35 whitespace-nowrap pointer-events-none select-none tracking-tighter leading-none -z-0"
+        aria-hidden="true"
+      >
+        LUMINA STUDIO SMILE
+      </motion.div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 relative z-10">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           <div className="lg:col-span-7 flex flex-col justify-center relative z-10">
             <motion.div
@@ -114,10 +124,11 @@ export function Hero() {
                 whileHover="hover"
                 whileTap="tap"
                 href="#booking"
-                className="inline-flex h-13 items-center justify-center gap-3 bg-[#12151A] hover:bg-[#1D4ED8] px-8 text-xs font-bold text-white tracking-widest uppercase transition-colors shadow-md group relative overflow-hidden"
+                className="inline-flex h-13 items-center justify-center gap-3 bg-[#12151A] px-8 text-xs font-bold text-white tracking-widest uppercase shadow-md group relative overflow-hidden"
               >
-                <span>Book A Visit</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <span className="absolute inset-0 bg-[#1D4ED8] -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out" />
+                <span className="relative z-10">Book A Visit</span>
+                <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1.5 transition-transform" />
               </motion.a>
 
               <motion.a
@@ -126,7 +137,7 @@ export function Hero() {
                 whileHover="hover"
                 whileTap="tap"
                 href="#layanan"
-                className="inline-flex h-13 items-center justify-center gap-2.5 bg-white hover:bg-[#F1F3F7] border border-[#E5E7EB] px-7 text-xs font-bold text-[#12151A] tracking-widest uppercase transition-colors"
+                className="inline-flex h-13 items-center justify-center gap-2.5 bg-white hover:bg-[#F1F3F7] border border-[#E5E7EB] px-7 text-xs font-bold text-[#12151A] tracking-widest uppercase transition-colors group"
               >
                 <span>Explore Smile Menu</span>
                 <ArrowUpRight className="w-4 h-4 text-[#1D4ED8] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -166,7 +177,7 @@ export function Hero() {
                   transition={{ delay: 0.94, duration: 0.4 }}
                   className="inline-block h-9 w-9 rounded-full ring-2 ring-[#F9F9FB] bg-[#12151A] text-white text-[11px] font-mono font-bold flex items-center justify-center"
                 >
-                  +380
+                  <Counter value={380} prefix="+" />
                 </motion.div>
               </div>
 
@@ -177,7 +188,9 @@ export function Hero() {
                       <Star key={i} className="w-3.5 h-3.5 fill-[#FF5A36]" />
                     ))}
                   </div>
-                  <span>4.9 / 5.0 Rating</span>
+                  <span>
+                    <Counter value={4.9} decimals={1} /> / 5.0 Rating
+                  </span>
                 </div>
                 <span className="text-[11px] text-[#64748B]">Berdasarkan 380+ ulasan pasien terverifikasi</span>
               </div>
@@ -200,10 +213,11 @@ export function Hero() {
                   initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.85 + idx * 0.08 }}
-                  className="border-l-2 border-[#00D284] pl-3 group hover:border-[#1D4ED8] transition-colors"
+                  whileHover={{ y: -3, borderColor: "#1D4ED8" }}
+                  className="border-l-2 border-[#00D284] pl-3 group transition-all"
                 >
                   <span className="text-[10px] text-slate-400 block uppercase font-bold">{spec.num}</span>
-                  <span className="font-bold text-[#12151A]">{spec.title}</span>
+                  <span className="font-bold text-[#12151A] group-hover:text-[#1D4ED8] transition-colors">{spec.title}</span>
                   <span className="text-[10px] text-slate-500 block">{spec.sub}</span>
                 </motion.div>
               ))}

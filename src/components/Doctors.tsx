@@ -1,19 +1,40 @@
 "use client";
 
+import { useRef } from "react";
 import Image from "next/image";
 import { clinicData } from "@/data/dental";
 import { ArrowUpRight } from "lucide-react";
-import { motion, useReducedMotion } from "motion/react";
+import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
 import { KineticHeadline } from "@/components/motion/KineticHeadline";
 import { editorialEase, snappySpring } from "@/motion/motionTokens";
 
 export function Doctors() {
   const { doctors, contact } = clinicData;
+  const containerRef = useRef<HTMLElement>(null);
   const shouldReduceMotion = useReducedMotion();
 
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const watermarkX = useTransform(scrollYProgress, [0, 1], ["8%", "-10%"]);
+
   return (
-    <section id="dokter" className="scroll-mt-24 py-20 sm:py-28 bg-[#F1F3F7] text-[#12151A] border-b border-[#E5E7EB]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+    <section
+      ref={containerRef}
+      id="dokter"
+      className="scroll-mt-24 py-20 sm:py-28 bg-[#F1F3F7] text-[#12151A] border-b border-[#E5E7EB] relative overflow-hidden"
+    >
+      <motion.div
+        style={{ x: shouldReduceMotion ? 0 : watermarkX }}
+        className="absolute -top-10 left-0 text-[110px] sm:text-[180px] font-black uppercase font-sans text-slate-200/50 whitespace-nowrap pointer-events-none select-none tracking-tighter leading-none -z-0"
+        aria-hidden="true"
+      >
+        SPECIALIST FACULTY PBDI
+      </motion.div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 relative z-10">
         <div className="border-b border-[#E5E7EB] pb-10 mb-16">
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <div>
@@ -57,13 +78,13 @@ export function Doctors() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.7, delay: idx * 0.1, ease: editorialEase }}
-              className="bg-white border border-[#E5E7EB] p-6 sm:p-10 lg:p-12 hover:border-[#1D4ED8] transition-colors relative shadow-xs hover:shadow-lg group"
+              className="bg-white border border-[#E5E7EB] p-6 sm:p-10 lg:p-12 hover:border-[#1D4ED8] transition-all relative shadow-xs hover:shadow-xl group"
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
                 <div className="lg:col-span-5 relative">
                   <div className="relative h-96 sm:h-[440px] w-full bg-[#12151A] overflow-hidden border border-[#E5E7EB]">
                     <motion.div
-                      whileHover={shouldReduceMotion ? undefined : { scale: 1.05 }}
+                      whileHover={shouldReduceMotion ? undefined : { scale: 1.06 }}
                       transition={{ duration: 0.6, ease: editorialEase }}
                       className="relative w-full h-full"
                     >
@@ -108,56 +129,60 @@ export function Doctors() {
                     </p>
 
                     <div className="p-4 bg-[#F9F9FB] border border-[#E5E7EB] font-mono text-xs space-y-3 mb-6">
-                      <div>
-                        <span className="text-[10px] uppercase text-slate-400 block font-bold">
-                          ALMAMATER PENDIDIKAN:
-                        </span>
-                        <span className="text-[#12151A] font-sans text-xs">
-                          {doc.education}
-                        </span>
+                      <div className="flex items-center justify-between border-b border-slate-200 pb-2">
+                        <span className="text-slate-400 uppercase">LATAR BELAKANG PENDIDIKAN</span>
+                        <span className="font-bold text-[#12151A]">{doc.education}</span>
                       </div>
 
-                      <div className="pt-2 border-t border-[#E5E7EB]">
-                        <span className="text-[10px] uppercase text-slate-400 block font-bold">
-                          FOKUS KLINIS:
-                        </span>
-                        <div className="flex flex-wrap gap-1.5 mt-1">
-                          {doc.focusTags.map((f: string, fIdx: number) => (
+                      <div className="flex items-center justify-between border-b border-slate-200 pb-2">
+                        <span className="text-slate-400 uppercase">JADWAL PRAKTIK AKTIF</span>
+                        <div className="flex items-center gap-2">
+                          <span className="w-2 h-2 rounded-full bg-[#00D284] animate-pulse" />
+                          <span className="font-bold text-[#00A868]">{doc.schedule}</span>
+                        </div>
+                      </div>
+
+                      <div>
+                        <span className="text-slate-400 uppercase block mb-1.5">SLOT KONSULTASI TERSEDIA HARI INI</span>
+                        <div className="flex flex-wrap gap-2">
+                          {doc.slots.map((slot, sIdx) => (
                             <span
-                              key={fIdx}
-                              className="px-2 py-0.5 bg-white border border-[#E5E7EB] text-[11px] text-slate-700"
+                              key={sIdx}
+                              className="px-2.5 py-1 bg-white border border-[#E5E7EB] text-[#12151A] font-bold text-[11px]"
                             >
-                              {f}
+                              {slot}
                             </span>
                           ))}
                         </div>
                       </div>
                     </div>
+
+                    <div className="flex flex-wrap gap-2">
+                      {doc.focusTags.map((tag, tIdx) => (
+                        <span
+                          key={tIdx}
+                          className="px-3 py-1 bg-[#12151A] text-white font-mono text-[11px] uppercase tracking-wider"
+                        >
+                          # {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
 
-                  <div className="pt-6 border-t border-[#E5E7EB] flex flex-col sm:flex-row sm:items-center justify-between gap-4 font-mono text-xs">
-                    <div>
-                      <span className="text-[10px] uppercase text-slate-400 block">
-                        JADWAL PRAKTIK KLINIK:
-                      </span>
-                      <span className="font-bold text-[#12151A] font-sans text-xs sm:text-sm">
-                        {doc.schedule}
-                      </span>
-                    </div>
-
+                  <div className="pt-6 border-t border-[#E5E7EB]">
                     <motion.a
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.97 }}
+                      whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
+                      whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
                       transition={snappySpring}
                       href={`https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(
-                        `Halo Lumina Dental, saya ingin reservasi jadwal konsultasi bersama ${doc.name}.`
+                        `Halo Lumina Dental, saya ingin reservasi konsultasi dengan ${doc.name}.`
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-[#12151A] hover:bg-[#1D4ED8] text-white text-xs font-mono uppercase tracking-wider transition-colors shadow-2xs group/btn"
+                      className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 bg-[#12151A] hover:bg-[#1D4ED8] text-white text-xs font-bold uppercase tracking-widest transition-colors font-mono shadow-sm group"
                     >
-                      <span>Jadwalkan Konsultasi</span>
-                      <ArrowUpRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                      <span>Reservasi Konsultasi Dengan {doc.name.split(",")[0]}</span>
+                      <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                     </motion.a>
                   </div>
                 </div>
