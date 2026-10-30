@@ -1,9 +1,15 @@
+"use client";
+
 import Image from "next/image";
 import { clinicData } from "@/data/dental";
 import { ArrowUpRight } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
+import { KineticHeadline } from "@/components/motion/KineticHeadline";
+import { editorialEase, snappySpring } from "@/motion/motionTokens";
 
 export function Doctors() {
   const { doctors, contact } = clinicData;
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <section id="dokter" className="scroll-mt-24 py-20 sm:py-28 bg-[#F1F3F7] text-[#12151A] border-b border-[#E5E7EB]">
@@ -11,41 +17,66 @@ export function Doctors() {
         <div className="border-b border-[#E5E7EB] pb-10 mb-16">
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <div>
-              <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-[#00A868] mb-3">
+              <motion.div
+                initial={shouldReduceMotion ? false : { opacity: 0, x: -15 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 0.6, ease: editorialEase }}
+                className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-[#00A868] mb-3"
+              >
                 <span className="font-bold">SECTION 04</span>
                 <span>/</span>
                 <span>CLINICAL FACULTY</span>
-              </div>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-[#12151A] font-sans">
-                Dentists In
-                <br />
-                Profile.
-              </h2>
+              </motion.div>
+
+              <KineticHeadline
+                lines={["Dentists In", "Profile."]}
+                highlightLineIndex={1}
+                highlightClassName="text-[#1D4ED8]"
+                className="text-4xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-[#12151A] font-sans"
+              />
             </div>
 
-            <p className="max-w-md text-sm sm:text-base text-[#4B5563] leading-relaxed">
+            <motion.p
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.6, delay: 0.2, ease: editorialEase }}
+              className="max-w-md text-sm sm:text-base text-[#4B5563] leading-relaxed"
+            >
               Profil dokter spesialis berlisensi resmi PBDI dan Dinas Kesehatan Surabaya. Memadukan kemahiran kuratif klinis dengan kepribadian yang ramah dan menenangkan.
-            </p>
+            </motion.p>
           </div>
         </div>
 
         <div className="space-y-16">
           {doctors.map((doc, idx) => (
-            <div
+            <motion.div
               key={doc.id}
-              className="bg-white border border-[#E5E7EB] p-6 sm:p-10 lg:p-12 hover:border-[#1D4ED8] transition-colors relative"
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 35 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.7, delay: idx * 0.1, ease: editorialEase }}
+              className="bg-white border border-[#E5E7EB] p-6 sm:p-10 lg:p-12 hover:border-[#1D4ED8] transition-colors relative shadow-xs hover:shadow-lg group"
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
                 <div className="lg:col-span-5 relative">
                   <div className="relative h-96 sm:h-[440px] w-full bg-[#12151A] overflow-hidden border border-[#E5E7EB]">
-                    <Image
-                      src={doc.photo}
-                      alt={`${doc.name} - Dokter Gigi Spesialis di Lumina Dental Surabaya`}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 40vw"
-                      className="object-cover object-top filter grayscale-[10%]"
-                    />
-                    <div className="absolute top-3 left-3 bg-[#12151A]/90 text-[#00D284] px-2.5 py-1 text-[10px] font-mono uppercase tracking-wider">
+                    <motion.div
+                      whileHover={shouldReduceMotion ? undefined : { scale: 1.05 }}
+                      transition={{ duration: 0.6, ease: editorialEase }}
+                      className="relative w-full h-full"
+                    >
+                      <Image
+                        src={doc.photo}
+                        alt={`${doc.name} - Dokter Gigi Spesialis di Lumina Dental Surabaya`}
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 40vw"
+                        className="object-cover object-top filter grayscale-[10%] group-hover:grayscale-0 transition-all duration-700"
+                      />
+                    </motion.div>
+
+                    <div className="absolute top-3 left-3 bg-[#12151A]/90 text-[#00D284] px-2.5 py-1 text-[10px] font-mono uppercase tracking-wider backdrop-blur-xs">
                       FACULTY 0{idx + 1} : SPESIALIS BERLISENSI
                     </div>
 
@@ -64,7 +95,7 @@ export function Doctors() {
                       <span>{doc.specialization}</span>
                     </div>
 
-                    <h3 className="text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-[#12151A] mb-2 font-sans">
+                    <h3 className="text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-[#12151A] mb-2 font-sans group-hover:text-[#1D4ED8] transition-colors">
                       {doc.name}
                     </h3>
 
@@ -114,21 +145,24 @@ export function Doctors() {
                       </span>
                     </div>
 
-                    <a
+                    <motion.a
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.97 }}
+                      transition={snappySpring}
                       href={`https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(
                         `Halo Lumina Dental, saya ingin reservasi jadwal konsultasi bersama ${doc.name}.`
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#12151A] hover:bg-[#1D4ED8] text-white text-xs font-mono uppercase tracking-wider transition-colors"
+                      className="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-[#12151A] hover:bg-[#1D4ED8] text-white text-xs font-mono uppercase tracking-wider transition-colors shadow-2xs group/btn"
                     >
                       <span>Jadwalkan Konsultasi</span>
-                      <ArrowUpRight className="w-3.5 h-3.5" />
-                    </a>
+                      <ArrowUpRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                    </motion.a>
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
