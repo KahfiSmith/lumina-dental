@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { clinicData } from "@/data/dental";
 import { JsonLd } from "@/components/JsonLd";
+import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -74,7 +75,9 @@ export default function RootLayout({
           Lewati ke konten utama
         </a>
         <JsonLd />
-        {children}
+        <SmoothScroll>
+          {children}
+        </SmoothScroll>
       </body>
     </html>
   );
