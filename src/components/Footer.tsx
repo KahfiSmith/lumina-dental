@@ -1,20 +1,34 @@
+"use client";
+
 import Link from "next/link";
 import { clinicData } from "@/data/dental";
-import { ShieldCheck } from "lucide-react";
+import { ShieldCheck, ArrowUp } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
+import { snappySpring } from "@/motion/motionTokens";
 
 export function Footer() {
   const { contact, operatingLicense } = clinicData;
   const currentYear = new Date().getFullYear();
+  const shouldReduceMotion = useReducedMotion();
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <footer className="bg-[#12151A] text-white pt-16 pb-12 border-t border-slate-800 text-xs font-mono">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 pb-14 border-b border-slate-800">
           <div className="lg:col-span-4 space-y-4">
-            <Link href="/" className="inline-flex items-center gap-2.5">
-              <div className="w-8 h-8 bg-white text-[#12151A] flex items-center justify-center font-bold text-sm">
+            <Link href="/" className="inline-flex items-center gap-2.5 group">
+              <motion.div
+                whileHover={shouldReduceMotion ? undefined : { scale: 1.08 }}
+                whileTap={shouldReduceMotion ? undefined : { scale: 0.95 }}
+                transition={snappySpring}
+                className="w-8 h-8 bg-white text-[#12151A] flex items-center justify-center font-bold text-sm"
+              >
                 L
-              </div>
+              </motion.div>
               <span className="text-xl font-extrabold tracking-tight text-white uppercase font-sans">
                 Lumina <span className="text-xs text-[#00D284]">Studio</span>
               </span>
@@ -35,31 +49,24 @@ export function Footer() {
               SMILE MENU
             </p>
             <ul className="space-y-2 text-xs text-slate-400 font-sans">
-              <li>
-                <a href="#layanan" className="hover:text-white transition-colors block">
-                  Ultrasonic Scaling & Airflow
-                </a>
-              </li>
-              <li>
-                <a href="#layanan" className="hover:text-white transition-colors block">
-                  LED Teeth Whitening (1 Jam)
-                </a>
-              </li>
-              <li>
-                <a href="#layanan" className="hover:text-white transition-colors block">
-                  Clear Aligners 3D Transparan
-                </a>
-              </li>
-              <li>
-                <a href="#layanan" className="hover:text-white transition-colors block">
-                  Porcelain Veneers Estetik
-                </a>
-              </li>
-              <li>
-                <a href="#layanan" className="hover:text-white transition-colors block">
-                  Implan Gigi Titanium
-                </a>
-              </li>
+              {[
+                "Ultrasonic Scaling & Airflow",
+                "LED Teeth Whitening (1 Jam)",
+                "Clear Aligners 3D Transparan",
+                "Porcelain Veneers Estetik",
+                "Implan Gigi Titanium",
+              ].map((item, idx) => (
+                <li key={idx}>
+                  <motion.a
+                    whileHover={shouldReduceMotion ? undefined : { x: 4, color: "#FFFFFF" }}
+                    transition={snappySpring}
+                    href="#layanan"
+                    className="hover:text-white transition-colors block"
+                  >
+                    {item}
+                  </motion.a>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -68,31 +75,24 @@ export function Footer() {
               SECTIONS
             </p>
             <ul className="space-y-2 text-xs text-slate-400 font-sans">
-              <li>
-                <a href="#kenyamanan" className="hover:text-white transition-colors block">
-                  01 : Philosophy
-                </a>
-              </li>
-              <li>
-                <a href="#alur" className="hover:text-white transition-colors block">
-                  02 : Experience
-                </a>
-              </li>
-              <li>
-                <a href="#dokter" className="hover:text-white transition-colors block">
-                  03 : Dentists
-                </a>
-              </li>
-              <li>
-                <a href="#hasil" className="hover:text-white transition-colors block">
-                  04 : Case Results
-                </a>
-              </li>
-              <li>
-                <a href="#lokasi" className="hover:text-white transition-colors block">
-                  05 : Surabaya Studio
-                </a>
-              </li>
+              {[
+                { label: "01 : Philosophy", href: "#kenyamanan" },
+                { label: "02 : Experience", href: "#alur" },
+                { label: "03 : Dentists", href: "#dokter" },
+                { label: "04 : Case Results", href: "#hasil" },
+                { label: "05 : Surabaya Studio", href: "#lokasi" },
+              ].map((sec, idx) => (
+                <li key={idx}>
+                  <motion.a
+                    whileHover={shouldReduceMotion ? undefined : { x: 4, color: "#FFFFFF" }}
+                    transition={snappySpring}
+                    href={sec.href}
+                    className="hover:text-white transition-colors block"
+                  >
+                    {sec.label}
+                  </motion.a>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -122,6 +122,19 @@ export function Footer() {
                   WA: {contact.whatsappFormatted}
                 </a>
               </div>
+            </div>
+
+            <div className="pt-2">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                type="button"
+                onClick={scrollToTop}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 hover:text-white text-[10px] uppercase tracking-wider transition-colors cursor-pointer"
+              >
+                <span>Back to top</span>
+                <ArrowUp className="w-3 h-3 text-[#00D284]" />
+              </motion.button>
             </div>
           </div>
         </div>

@@ -1,16 +1,45 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import { clinicData } from "@/data/dental";
 import { SlidersHorizontal, ArrowUpRight } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
+import { KineticHeadline } from "@/components/motion/KineticHeadline";
+import { editorialEase, snappySpring } from "@/motion/motionTokens";
 
 export function Cases() {
   const { cases, contact } = clinicData;
   const [sliderPos, setSliderPos] = useState<number>(50);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const comparisonRef = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   const featuredCase = cases[1];
   const sideCases = cases.filter((c) => c.id !== featuredCase.id);
+
+  const handlePointerMove = useCallback(
+    (clientX: number) => {
+      if (!comparisonRef.current) return;
+      const rect = comparisonRef.current.getBoundingClientRect();
+      const x = clientX - rect.left;
+      const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
+      setSliderPos(percentage);
+    },
+    []
+  );
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (e.touches.length > 0) {
+      handlePointerMove(e.touches[0].clientX);
+    }
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isDragging) {
+      handlePointerMove(e.clientX);
+    }
+  };
 
   return (
     <section id="hasil" className="scroll-mt-24 py-20 sm:py-28 bg-white text-[#12151A] border-b border-[#E5E7EB]">
@@ -20,25 +49,45 @@ export function Cases() {
         <div className="border-b border-[#E5E7EB] pb-10 mb-14">
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <div>
-              <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-[#00A868] mb-3">
+              <motion.div
+                initial={shouldReduceMotion ? false : { opacity: 0, x: -15 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 0.6, ease: editorialEase }}
+                className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-[#00A868] mb-3"
+              >
                 <span className="font-bold">SECTION 05</span>
                 <span>/</span>
                 <span>CLINICAL EVIDENCE</span>
-              </div>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-[#12151A] font-sans">
-                Real Smiles.
-                <br />
-                Real Results.
-              </h2>
+              </motion.div>
+
+              <KineticHeadline
+                lines={["Real Smiles.", "Real Results."]}
+                highlightLineIndex={1}
+                highlightClassName="text-[#1D4ED8]"
+                className="text-4xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-[#12151A] font-sans"
+              />
             </div>
 
-            <p className="max-w-md text-sm sm:text-base text-[#4B5563] leading-relaxed">
+            <motion.p
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.6, delay: 0.2, ease: editorialEase }}
+              className="max-w-md text-sm sm:text-base text-[#4B5563] leading-relaxed"
+            >
               Dokumentasi klinis autentik sebelum dan sesudah perawatan. Tanpa manipulasi digital kecantikan, mengedepankan keselarasan fungsional dan estetika natural.
-            </p>
+            </motion.p>
           </div>
         </div>
 
-        <div className="bg-[#F9F9FB] border border-[#E5E7EB] p-6 sm:p-10 mb-16">
+        <motion.div
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.7, ease: editorialEase }}
+          className="bg-[#F9F9FB] border border-[#E5E7EB] p-6 sm:p-10 mb-16 shadow-2xs"
+        >
           <div className="flex flex-wrap items-center justify-between pb-4 mb-6 border-b border-[#E5E7EB] font-mono text-xs text-slate-500">
             <span className="font-bold text-[#1D4ED8] uppercase">
               FEATURED COMPARISON : {featuredCase.treatmentType}
@@ -48,16 +97,24 @@ export function Cases() {
 
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-8">
-              <div className="relative aspect-16/10 w-full overflow-hidden select-none bg-black border border-[#E5E7EB]">
+              <div
+                ref={comparisonRef}
+                onMouseDown={() => setIsDragging(true)}
+                onMouseUp={() => setIsDragging(false)}
+                onMouseLeave={() => setIsDragging(false)}
+                onMouseMove={handleMouseMove}
+                onTouchMove={handleTouchMove}
+                className="relative aspect-16/10 w-full overflow-hidden select-none bg-black border border-[#E5E7EB] cursor-ew-resize group"
+              >
                 <Image
                   src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=1200&auto=format&fit=crop"
                   alt="Hasil sesudah perawatan teeth whitening Lumina Dental"
                   fill
-                  className="object-cover"
+                  className="object-cover pointer-events-none"
                 />
 
                 <div
-                  className="absolute inset-0 overflow-hidden"
+                  className="absolute inset-0 overflow-hidden pointer-events-none"
                   style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}
                 >
                   <Image
@@ -69,19 +126,23 @@ export function Cases() {
                 </div>
 
                 <div
-                  className="absolute top-0 bottom-0 w-0.5 bg-white shadow-lg pointer-events-none"
+                  className="absolute top-0 bottom-0 w-[2px] bg-white shadow-xl pointer-events-none transition-opacity"
                   style={{ left: `${sliderPos}%` }}
                 >
-                  <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-[#12151A] text-white flex items-center justify-center text-xs font-mono border border-white">
-                    <SlidersHorizontal className="w-3.5 h-3.5" />
-                  </div>
+                  <motion.div
+                    animate={{ scale: isDragging ? 1.15 : 1 }}
+                    transition={snappySpring}
+                    className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 rounded-full bg-[#12151A] text-white flex items-center justify-center text-xs font-mono border-2 border-white shadow-lg"
+                  >
+                    <SlidersHorizontal className="w-4 h-4 text-[#00D284]" />
+                  </motion.div>
                 </div>
 
-                <div className="absolute bottom-4 left-4 bg-[#12151A]/90 px-3 py-1 font-mono text-[10px] text-white uppercase tracking-widest">
+                <div className="absolute bottom-4 left-4 bg-[#12151A]/90 px-3 py-1 font-mono text-[10px] text-white uppercase tracking-widest backdrop-blur-xs pointer-events-none">
                   BEFORE
                 </div>
 
-                <div className="absolute bottom-4 right-4 bg-[#00D284] px-3 py-1 font-mono text-[10px] text-[#12151A] uppercase tracking-widest font-bold">
+                <div className="absolute bottom-4 right-4 bg-[#00D284] px-3 py-1 font-mono text-[10px] text-[#12151A] uppercase tracking-widest font-bold pointer-events-none">
                   AFTER
                 </div>
               </div>
@@ -143,26 +204,34 @@ export function Cases() {
                 </div>
               </div>
 
-              <a
+              <motion.a
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={snappySpring}
                 href={`https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(
                   `Halo Lumina Dental, saya ingin konsultasi mengenai prosedur ${featuredCase.treatmentType}.`
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 py-3 bg-[#12151A] hover:bg-[#1D4ED8] text-white text-xs font-mono uppercase tracking-wider transition-colors"
+                className="w-full flex items-center justify-center gap-2 py-3 bg-[#12151A] hover:bg-[#1D4ED8] text-white text-xs font-mono uppercase tracking-wider transition-colors shadow-2xs group"
               >
                 <span>Konsultasikan Kasus Serupa</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </a>
+                <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </motion.a>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {sideCases.map((c, idx) => (
-            <div
+            <motion.div
               key={c.id}
-              className="p-6 bg-[#F9F9FB] border border-[#E5E7EB] flex flex-col justify-between hover:border-[#1D4ED8] transition-colors"
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: idx * 0.1, ease: editorialEase }}
+              whileHover={shouldReduceMotion ? undefined : { y: -4, borderColor: "#1D4ED8" }}
+              className="p-6 bg-[#F9F9FB] border border-[#E5E7EB] flex flex-col justify-between hover:border-[#1D4ED8] transition-colors cursor-default shadow-2xs hover:shadow-sm"
             >
               <div>
                 <div className="flex items-center justify-between font-mono text-xs text-slate-400 mb-2">
@@ -188,7 +257,7 @@ export function Cases() {
                 <span className="text-slate-500">{c.resultHighlight}</span>
                 <span className="text-[#00A868] font-bold">VERIFIED</span>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
